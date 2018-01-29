@@ -1,0 +1,15 @@
+package com.example.webapp.dao;
+
+
+import com.example.webapp.entity.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserDao extends JpaRepository<UserEntity, Integer>{
+
+    @Query("from UserEntity user where user.userEmail =:qEmail")
+    UserEntity findUserByEmail(@Param("qEmail") String email);
+}
