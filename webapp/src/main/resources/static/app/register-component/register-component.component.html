@@ -1,0 +1,23 @@
+<section>
+
+  <div id="backgro" class="container">
+      <h2>Create an account</h2>
+      <br />
+      <form (ngSubmit)="register()"  #registerForm="ngForm" novalidate>
+          <fieldset class="form-group area">
+              <div class="alert alert-danger" *ngIf="isError">{{errorMessage}}</div>
+              <label for="email" >Email:</label>
+              <input type="text" name="email" id="email" placeholder="Email Address" [(ngModel)]="model.email" #email="ngModel" class="form-control"/><br>
+
+              <label for="password1" >Password:</label>
+              <input type="password" name="password1" id="password1" placeholder="Password" [(ngModel)]="model.password1" #password1="ngModel" class="form-control"><br>
+
+              <label for="password2" >Confirm Password:</label>
+              <input type="password" name="password2" id="password2" placeholder="Confirm Password" [(ngModel)]="model.password2" #password2="ngModel" class="form-control"><br>
+
+              <div align="center">
+                  <input type="submit" value="Create" class="btn btn-danger">
+              </div>
+          </fieldset>
+      </form>
+      <a href="#/login" >Sign in to an exsiting account.</a>
