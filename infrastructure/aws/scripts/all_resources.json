@@ -1,0 +1,34 @@
+{
+    "Tags": [
+        {
+            "ResourceType": "vpc", 
+            "ResourceId": "vpc-d55abbae", 
+            "Value": "", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "vpc", 
+            "ResourceId": "vpc-fdad4d86", 
+            "Value": "", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "route-table", 
+            "ResourceId": "rtb-2242415f", 
+            "Value": "", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "route-table", 
+            "ResourceId": "rtb-3b434046", 
+            "Value": "", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "internet-gateway", 
+            "ResourceId": "igw-2c4d5a55", 
+            "Value": "", 
+            "Key": "name"
+        }
+    ]
+}
