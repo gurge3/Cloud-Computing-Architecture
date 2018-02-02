@@ -4,6 +4,7 @@ CREATE_VPC=`aws ec2 create-vpc --cidr-block 10.0.0.0/16`
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "$CREATE_VPC" > "$DIR/vpc.json"
 VPC_ID=`jq ".Vpc.VpcId" "$DIR/vpc.json" -r`
+echo "${VPC_ID}"
 if [ "$VPC_ID" == "" ]; then
 	echo "[error] creating vpc failed!" 1>&2
 	exit 1
