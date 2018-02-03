@@ -1,11 +1,7 @@
 <form method="get" action="">
   <fieldset class="form-group area">
   <h2>Welcome {{user}}</h2>
-  <p id="demo"></p>
+  <h3>Current Time: {{date}}</h3>
   <a (click)="logOut()" value="Log Out" class="btn btn-danger">Log Out</a>
   </fieldset>
 </form>
-
-<script>
-  document.getElementById("demo").innerHTML = Date();
-</script>
