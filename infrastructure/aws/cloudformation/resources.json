@@ -1,0 +1,36 @@
+{"AWSTemplateFormatVersion": "2010-09-09",
+ "Resources": {
+   "InternetGatewaycreate": {
+     "Type": "AWS::EC2::InternetGateway", 
+     "Properties": {
+       "Tags": [{"Key": "name", "Value": "create-csye6225-InternetGateway"}]
+     }
+   }
+  ,"VPCcreate": {
+     "Type": "AWS::EC2::VPC", 
+     "Properties": {
+       "CidrBlock": "10.0.0.0/16",
+       "Tags": [{"Key": "name", "Value": "create-csye6225-vpc"}]
+     }
+   },"AttachedGatewaycreate": {
+   	  "Type": "AWS::EC2::VPCGatewayAttachment",
+   	  "Properties": {
+   	  	"VpcId": {"Ref": "VPCcreate"},
+   	  	"InternetGatewayId": {"Ref": "InternetGatewaycreate"}
+   	  }
+   }, "RouteTablecreate": {
+   	  "Type": "AWS::EC2::RouteTable",
+   	  "Properties": {
+   	  	"VpcId": {"Ref": "VPCcreate"},
+   	  	"Tags": [{"Key": "name", "Value": "create-csye6225-public-route-table"}]
+   	  }
+   }, "Routecreate": {
+   	  "Type": "AWS::EC2::Route",
+   	  "Properties": {
+   	  	 "RouteTableId": {"Ref": "RouteTablecreate"},
+   	  	 "DestinationCidrBlock": "0.0.0.0/0",
+   	  	 "GatewayId": {"Ref": "AttachedGatewaycreate"}
+   	  }
+   }
+  }  
+}

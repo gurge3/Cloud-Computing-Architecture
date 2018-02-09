@@ -1,16 +1,3 @@
 {
-    "Tags": [
-        {
-            "ResourceType": "vpc", 
-            "ResourceId": "vpc-45a4463e", 
-            "Value": "gurge3", 
-            "Key": "name"
-        }, 
-        {
-            "ResourceType": "internet-gateway", 
-            "ResourceId": "igw-f287918b", 
-            "Value": "gurge3", 
-            "Key": "name"
-        }
-    ]
+    "Tags": []
 }

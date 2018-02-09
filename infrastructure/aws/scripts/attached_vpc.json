@@ -1,1 +1,19 @@
-
+{
+    "InternetGateways": [
+        {
+            "Tags": [
+                {
+                    "Value": "gurge333", 
+                    "Key": "name"
+                }
+            ], 
+            "Attachments": [
+                {
+                    "State": "available", 
+                    "VpcId": "vpc-2bc73350"
+                }
+            ], 
+            "InternetGatewayId": "igw-081b0271"
+        }
+    ]
+}
