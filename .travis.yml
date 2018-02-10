@@ -1,4 +1,13 @@
 language: java
 jdk:
  - oraclejdk8
- script: mvn clean verify
+sudo: false
+install: true
+script:
+- cd webapp
+- ./mvnw war -B
+
+notifications:
+email:
+recipients:
+- wu.x@husky.neu.edu
