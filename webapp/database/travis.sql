@@ -19,6 +19,7 @@
 -- Table structure for table `user`
 --
 CREATE DATABASE IF NOT EXISTS assignment2;
+use assignment2;
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
