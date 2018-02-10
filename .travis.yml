@@ -5,7 +5,7 @@ sudo: false
 install: true
 script:
 - cd webapp
-- ./mvnw war -B
+- mvn clean verify
 
 notifications:
 email:
