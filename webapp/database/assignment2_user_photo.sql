@@ -16,41 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user`
---
-CREATE DATABASE IF NOT EXISTS assignment2;
-use assignment2;
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_email` varchar(45) NOT NULL,
-  `user_password` varchar(200) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
-  UNIQUE KEY `user_email_UNIQUE` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=694 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `user_about_me`
---
-
-DROP TABLE IF EXISTS `user_about_me`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_about_me` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `about_me` varchar(140) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_user_1_idx` (`user_id`),
-  CONSTRAINT `fk_user_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `user_photo`
 --
 
@@ -76,4 +41,4 @@ CREATE TABLE `user_photo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-16 19:00:58
+-- Dump completed on 2018-02-16 18:59:37

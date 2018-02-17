@@ -1,3 +1,22 @@
 {
-    "Tags": []
+    "Tags": [
+        {
+            "ResourceType": "internet-gateway", 
+            "ResourceId": "igw-9b32d3e3", 
+            "Value": "random12345", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "route-table", 
+            "ResourceId": "rtb-1bc62267", 
+            "Value": "random12345", 
+            "Key": "name"
+        }, 
+        {
+            "ResourceType": "vpc", 
+            "ResourceId": "vpc-74926b0f", 
+            "Value": "random12345", 
+            "Key": "name"
+        }
+    ]
 }
