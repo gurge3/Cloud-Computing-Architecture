@@ -5,11 +5,13 @@ import { RegisterComponentComponent } from 'app/register-component/register-comp
 import { MainComponentComponent } from 'app/main-component/main-component.component';
 import { RouterModule } from '@angular/router/src/router_module';
 import { CommonModule } from '@angular/common/src/common_module';
+import { AboutMeComponent } from '../about-me/about-me.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponentComponent}, 
   {path: 'register', component: RegisterComponentComponent}, 
   {path: 'home', component: MainComponentComponent},
+  {path: 'aboutMe/:username',component: AboutMeComponent },
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ]
 

@@ -1,0 +1,25 @@
+<form method="get" action="">
+  <fieldset class="form-group area">
+  <h2>Welcome {{user}}</h2>
+  <h3>Current Time: {{date}}</h3>
+  <a (click)="logOut()" value="Log Out" class="btn btn-danger">Log Out</a>
+  </fieldset>
+</form>
+<br>
+<image-upload url="http://localhost:8080/photo/upload/{{user}}/"></image-upload>
+
+<img *ngIf="isPhoto" src="http://localhost:8000/{{filePath}}" alt="">
+<a (click)="deletePhoto()" value="Delete Photo" class="btn btn-danger">Delete Photo</a>
+<h3 *ngIf="!isPhoto">No Photo!</h3>
+<form (ngSubmit)="submit()" #loginForm="ngForm" novalidate>
+    <fieldset class="form-group area">
+        <h2>Manage About Me:</h2>
+    <div class="alert alert-danger" *ngIf="isError">{{errorMessage}}</div>
+    <label >Text</label>
+    <input type="text" name="aboutMe" id="aboutMe" [(ngModel)]="model.aboutMe" #aboutMe="ngModel" 
+    placeholder="About Me" class="form-control" required/><br>
+    <input type="submit" value="Submit" class="btn btn-danger">
+    </fieldset>
+</form>
+
+
