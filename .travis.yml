@@ -17,6 +17,11 @@ script:
   - rm package-lock.json
   - npm install
   - ng build --prod --aot=false
+  - cd ..
+  - cd ..
+  - cd ..
+  - cd ..
+  - cd ..
 deploy:
   on:
     branch: master
