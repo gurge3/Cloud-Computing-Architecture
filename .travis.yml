@@ -7,7 +7,7 @@ services:
   - mysql
 before_install:
   - mysql -u root --password="" < webapp/database/travis.sql
-  - npm install --save-dev @angular/cli@latest
+  - npm install -g @angular/cli@latest
 install: true
 script:
   - cd webapp
