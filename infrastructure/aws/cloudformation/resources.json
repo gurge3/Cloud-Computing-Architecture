@@ -1,22 +1,22 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
-   "InternetGatewaytestS3": {
+   "InternetGatewayAssignment6": {
      "Type": "AWS::EC2::InternetGateway", 
      "Properties": {
-       "Tags": [{"Key": "Name", "Value": "testS3-csye6225-InternetGateway"}]
+       "Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-InternetGateway"}]
      }
    }
-  ,"VPCtestS3": {
+  ,"VPCAssignment6": {
      "Type": "AWS::EC2::VPC", 
      "Properties": {
        "CidrBlock": "10.0.0.0/16",
-       "Tags": [{"Key": "Name", "Value": "testS3-csye6225-vpc"}]
+       "Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-vpc"}]
      }
-   },"AttachedGatewaytestS3": {
+   },"AttachedGatewayAssignment6": {
    	  "Type": "AWS::EC2::VPCGatewayAttachment",
    	  "Properties": {
-   	  	"VpcId": {"Ref": "VPCtestS3"},
-   	  	"InternetGatewayId": {"Ref": "InternetGatewaytestS3"}
+   	  	"VpcId": {"Ref": "VPCAssignment6"},
+   	  	"InternetGatewayId": {"Ref": "InternetGatewayAssignment6"}
    	  }
    }
   }  

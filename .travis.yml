@@ -16,7 +16,7 @@ script:
   - rm -rf node_modules
   - rm package-lock.json
   - npm install
-  - ng build --prod
+  - ng build --prod --aot=false
 
 notifications:
   email:
