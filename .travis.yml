@@ -12,17 +12,16 @@ matrix:
       script:
       - cd webapp
       - mvn clean verify
-  
-  include:
+
     - language: node_js
       node_js:
         - "6.12.3"
-    sudo: true
-    before_install:
-      - npm install -g @angular/cli
-    script:
-      - cd webapp/src/main/resources/static
-      - ng build --prod
+      sudo: true
+      before_install:
+        - npm install -g @angular/cli
+      script:
+        - cd webapp/src/main/resources/static
+        - ng build --prod
 notifications:
   email:
   recipients:
