@@ -1,5 +1,5 @@
 STACK_NAME=$1
-DESCRIBE_TAGS=`aws ec2 describe-tags --filters "Name=key,Values=name" "Name=value,Values='$STACK_NAME'"`
+DESCRIBE_TAGS=`aws ec2 describe-tags --filters "Name=key,Values=Name" "Name=value,Values='$STACK_NAME'"`
 echo "$DESCRIBE_TAGS" > "$PWD/all_resources.json"
 
 jq -c -r '.Tags[].ResourceId' "$PWD/all_resources.json" | while read i; do

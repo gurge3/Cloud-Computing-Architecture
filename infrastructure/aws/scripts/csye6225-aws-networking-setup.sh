@@ -10,7 +10,7 @@ if [ "$VPC_ID" == "" ]; then
 	exit 1
 else
 	echo "VPC ${VPC_ID} has been created"
-	aws ec2 create-tags --resources $VPC_ID --tags Key=name,Value=$STACK_NAME
+	aws ec2 create-tags --resources $VPC_ID --tags Key=Name,Value=$STACK_NAME
 	echo "VPC's name is $STACK_NAME"
 fi
 CREATE_INTERNET_GATEWAY=`aws ec2 create-internet-gateway`
@@ -21,7 +21,7 @@ if [ "$INTERNET_GATEWAY_ID" == "" ]; then
 	exit 1
 else
 	echo "Internet Gateway ${INTERNET_GATEWAY_ID} has been created"
-	aws ec2 create-tags --resources $INTERNET_GATEWAY_ID --tags Key=name,Value=$STACK_NAME
+	aws ec2 create-tags --resources $INTERNET_GATEWAY_ID --tags Key=Name,Value=$STACK_NAME
 	echo "Internet Gateway's name is $STACK_NAME"
 fi
 ATTACH_INTERNET_GATEWAY=`aws ec2 attach-internet-gateway --internet-gateway-id ${INTERNET_GATEWAY_ID} --vpc-id ${VPC_ID}`
@@ -34,7 +34,7 @@ if [ "$ROUTE_TABLE_ID" == "" ]; then
 	exit 1
 else
 	echo "Route Table ${ROUTE_TABLE_ID} has been created"
-	aws ec2 create-tags --resources $ROUTE_TABLE_ID --tags Key=name,Value=$STACK_NAME
+	aws ec2 create-tags --resources $ROUTE_TABLE_ID --tags Key=Name,Value=$STACK_NAME
 	echo "Route table's name is $STACK_NAME"
 fi
 CREATE_ROUTE=`aws ec2 create-route --route-table-id ${ROUTE_TABLE_ID} --destination-cidr-block 0.0.0.0/0 --gateway-id ${INTERNET_GATEWAY_ID}`

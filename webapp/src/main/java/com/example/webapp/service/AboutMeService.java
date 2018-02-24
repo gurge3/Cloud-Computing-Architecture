@@ -35,14 +35,21 @@ public class AboutMeService {
 
     @Transactional
     public boolean setAboutMeByUsername(AboutMeModel model) {
-        UserAboutMeEntity aboutMe = new UserAboutMeEntity();
-        aboutMe.setAboutMe(model.getAboutMe());
-        UserEntity user = userDao.findUserByEmail(model.getUsername());
-        if (user == null) {
-            return false;
+        UserAboutMeEntity aboutMe = getAboutMeByUsername(model.getUsername());
+        if (aboutMe == null) {
+            aboutMe = new UserAboutMeEntity();
+            aboutMe.setAboutMe(model.getAboutMe());
+            UserEntity user = userDao.findUserByEmail(model.getUsername());
+            if (user == null) {
+                return false;
+            }
+            aboutMe.setUser(user);
+            aboutMeDao.saveAndFlush(aboutMe);
+            return true;
+        } else {
+            aboutMe.setAboutMe(model.getAboutMe());
+            aboutMeDao.saveAndFlush(aboutMe);
+            return true;
         }
-        aboutMe.setUser(user);
-        aboutMeDao.saveAndFlush(aboutMe);
-        return true;
     }
 }

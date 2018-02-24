@@ -33,7 +33,7 @@ public class FileUploadController {
             return new ResponseEntity<>("Please select a file!", HttpStatus.OK);
         }
         try {
-            if (fileUploadService.saveUploadedFiles(Arrays.asList(uploadFile), username)) {
+            if (fileUploadService.saveUploadedFiles(uploadFile, username)) {
                 return new ResponseEntity<>("File is successfully uploaded" + uploadFile.getOriginalFilename(),
                         new HttpHeaders(), HttpStatus.OK);
             }

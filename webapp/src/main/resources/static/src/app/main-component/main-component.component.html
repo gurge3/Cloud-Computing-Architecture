@@ -8,7 +8,7 @@
 <br>
 <image-upload url="http://localhost:8080/photo/upload/{{user}}/"></image-upload>
 
-<img *ngIf="isPhoto" src="http://localhost:8000/{{filePath}}" alt="">
+<img *ngIf="isPhoto" src="{{filePath}}" alt="">
 <a (click)="deletePhoto()" value="Delete Photo" class="btn btn-danger">Delete Photo</a>
 <h3 *ngIf="!isPhoto">No Photo!</h3>
 <form (ngSubmit)="submit()" #loginForm="ngForm" novalidate>
