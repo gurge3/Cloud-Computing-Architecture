@@ -1,20 +1,20 @@
-- language: java
-  jdk:
-    - oraclejdk8
-  node_js: "6.12.3"
-  sudo: false
-  services:
-    - mysql
-  before_install:
-    - mysql -u root --password="" < webapp/database/travis.sql
-    - npm install -g @angular/cli
-    - npm install
-  install: true
-  script:
-    - cd webapp
-    - mvn clean verify
-    - cd src/main/resources/static
-    - ng build --prod
+language: java
+jdk:
+  - oraclejdk8
+node_js: "6.12.3"
+sudo: false
+services:
+  - mysql
+before_install:
+  - mysql -u root --password="" < webapp/database/travis.sql
+  - npm install -g @angular/cli
+  - npm install
+install: true
+script:
+  - cd webapp
+  - mvn clean verify
+  - cd src/main/resources/static
+  - ng build --prod
 
 notifications:
   email:
