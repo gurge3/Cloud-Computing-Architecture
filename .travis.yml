@@ -14,6 +14,7 @@ script:
   - mvn clean verify
   - cd src/main/resources/static
   - rm -rf node_modules
+  - rm package-lock.json
   - npm install
   - ng build --prod
 
