@@ -2,7 +2,7 @@
   "name": "login-app",
   "version": "0.0.0",
   "license": "MIT",
-  "angular-cli": {},
+  "@angular-cli": "1.0.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
