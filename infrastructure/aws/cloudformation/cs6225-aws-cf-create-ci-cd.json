@@ -1,0 +1,139 @@
+{"AWSTemplateFormatVersion": "2010-09-09",
+ "Resources": {
+   "IAMPolicyForEC2CodeDeploytestS3": {
+     "Type": "AWS::IAM::Policy", 
+     "Properties": {
+       "PolicyName": "IAMPolicyForEC2CodeDeploytestS3",
+       "Roles": [{
+           "Ref": "CodeDeployEC2ServiceRoletestS3"
+       }],
+       "PolicyDocument": {
+           "Version": "2012-10-17",
+           "Statement": [
+               {
+                   "Action": [
+                       "s3:Get*",
+                       "s3:List*"
+                   ],
+                   "Effect": "Allow",
+                   "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBuckettestS3"
+               }
+           ]
+       }
+     }
+   } ,"IAMPolicyForS3TravistestS3": {
+     "Type": "AWS::IAM::Policy", 
+     "Properties": {
+       "PolicyName": "IAMPolicyForS3TravistestS3",
+       "Roles": [{
+           "Ref": "TravisCodeDeployServiceRoletestS3"
+       }],
+       "PolicyDocument": {
+           "Version": "2012-10-17",
+           "Statement": [
+               {
+                   "Effect": "Allow",
+                   "Action": [
+                       "s3:putObject"
+                   ],
+                   "Resource": [
+                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBuckettestS3"
+                   ]
+               }
+           ]
+       }
+     }
+   },"TravisCodeDeployPolicytestS3": {
+   	  "Type": "AWS::IAM::Policy",
+   	  "Properties": {
+   	  	"PolicyName": "TravisCodeDeployPolicytestS3",
+        "Roles": [{
+            "Ref": "TravisCodeDeployServiceRoletestS3"
+        }],
+        "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "codedeploy:RegisterApplicationRevision",
+                        "codedeploy:GetApplicationRevision"
+                    ],
+                    "Resource": [
+                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationtestS3"
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "codedeploy:CreateDeployment",
+                        "codedeploy:GetDeployment"
+                    ],
+                    "Resource": [
+                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationtestS3"
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "codedeploy:GetDeploymentConfig"
+                    ],
+                    "Resource": [
+                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.OneAtATime",
+                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.HalfAtATime",
+                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.AllAtOnce"
+                    ]
+                }
+            ]
+        }
+      }
+   	}, "CodeDeployEC2ServiceRoletestS3": {
+           "Type": "AWS::IAM::Role",
+           "Properties": {
+               "AssumeRolePolicyDocument": {
+                   "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "s3.amazonaws.com"
+                            }
+                        }
+                    ]
+               },
+               "RoleName": "CodeDeployEC2ServiceRoletestS3"
+           }
+    }, "TravisCodeDeployServiceRoletestS3": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+            "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "codedeploy.amazonaws.com"
+                        },
+                        "Action": [
+                            "sts:AssumeRole"
+                        ]
+                    }
+                ] 
+            }
+        }
+    }, "S3BuildArtifactBuckettestS3": {
+        "Type": "AWS::S3::Bucket",
+        "Properties": {
+            "BucketName": "code-deploy.csye6225-spring2018-wux.tld"
+        }
+    }, "CodeDeployApplicationtestS3": {
+        "Type": "AWS::CodeDeploy::Application",
+        "Properties": {
+            "ApplicationName": "CodeDeployApplicationtestS3"
+        }
+    }
+  }
+}

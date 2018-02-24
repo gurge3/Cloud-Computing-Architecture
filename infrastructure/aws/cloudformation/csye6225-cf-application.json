@@ -1,6 +1,6 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
-   "Instancerrraaa": {
+   "Instancetest": {
      "Type": "AWS::EC2::Instance", 
      "Properties": {
        "ImageId" : "ami-66506c1c",
@@ -16,6 +16,133 @@
        	"NoDevice" : {}
         }]
       }
-    }
+    },"PrivateRouteTabletest": {
+   	  "Type": "AWS::EC2::RouteTable",
+   	  "Properties": {
+   	  	"VpcId": "vpc-acdc16d7",
+   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-private-route-table"}]
+   	  }
+   }, "PublicRouteTabletest": {
+   	  "Type": "AWS::EC2::RouteTable",
+   	  "Properties": {
+   	  	"VpcId": "vpc-acdc16d7",
+   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-public-route-table"}]
+   	  }
+   }, "SubnetWebServertest": {
+   	  "Type": "AWS::EC2::Subnet",
+   	  "Properties": {
+   	  	"VpcId": "vpc-acdc16d7",
+		"CidrBlock": "10.0.0.0/24",
+		"AvailabilityZone": "us-east-1a",
+   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-web-server-subnet-table"}]
+   	  }
+   }, "SubnetDatabasetest": {
+   	  "Type": "AWS::EC2::Subnet",
+   	  "Properties": {
+   	  	"VpcId": "vpc-acdc16d7",
+		"CidrBlock": "10.0.1.0/24",
+		"AvailabilityZone": "us-east-1b",
+   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-database-subnet-table"}]
+   	  }
+   }, "DBSubnetGrouptest": {
+   	  "Type": "AWS::RDS::DBSubnetGroup",
+   	  "Properties": {
+   	  	"DBSubnetGroupDescription": "DB Subnet",
+		"SubnetIds": [
+		 	{"Ref": "SubnetWebServertest"},
+			{"Ref": "SubnetDatabasetest"}
+		],
+   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-database-subnet-group"}]
+   	  }
+   }, "PublicTableAssociationtest": {
+   	  "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   	  "Properties": {
+   	  	"RouteTableId": {"Ref": "PublicRouteTabletest"},
+		"SubnetId": {"Ref": "SubnetWebServertest"}
+   	  }
+   }, "PrivateTableAssociationtest": {
+   	  "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   	  "Properties": {
+   	  	"RouteTableId": {"Ref": "PrivateRouteTabletest"},
+		"SubnetId": {"Ref": "SubnetDatabasetest"}
+   	  }
+   }, "EC2SecurityGrouptest": {
+   	  "Type": "AWS::EC2::SecurityGroup",
+   	  "Properties": {
+   	  	"GroupDescription": "Allow http to client host",
+   	  	"VpcId": "vpc-acdc16d7",
+   	  	"SecurityGroupIngress": [{
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "22",
+   	  		"ToPort": "22",
+   	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "80",
+   	  		"ToPort": "80",
+   	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "443",
+   	  		"ToPort": "443",
+   	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "3306",
+   	  		"ToPort": "3306",
+   	  		"CidrIp": "0.0.0.0/0"
+   	  	}]
+   	  }
+   }, "RDSDBSecurityGrouptest": {
+   	  "Type": "AWS::RDS::DBSecurityGroup",
+   	  "Properties": {
+   	  	"EC2VpcId": "vpc-acdc16d7",
+   	  	"DBSecurityGroupIngress": [{
+   	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGrouptest"}
+   	  	}],
+   	  	"GroupDescription": "Front end access"
+   	  }
+   }, "Databasetest": {
+   	  "Type": "AWS::DynamoDB::Table",
+   	  "Properties": {
+   	  	"TableName": "csye6225",
+		"AttributeDefinitions": [
+			{
+				"AttributeName": "id",
+				"AttributeType": "S"
+			}
+		],
+		"KeySchema": [
+			{
+				"AttributeName": "id",
+				"KeyType": "HASH"
+			}
+		],
+		"ProvisionedThroughput": {
+			"ReadCapacityUnits": 5,
+			"WriteCapacityUnits": 5
+		}
+   	  }
+   }, "RDSDBInstancetest": {
+   	  "Type": "AWS::RDS::DBInstance",
+   	  "Properties": {
+   	  	"DBName": "csye6225",
+		"AllocatedStorage": 100,
+   	  	"DBInstanceClass": "db.t2.medium",
+   	  	"Engine": "MySQL",
+   	  	"EngineVersion": "5.6.37",
+   	  	"MasterUsername": "csye6225master",
+   	  	"MasterUserPassword": "csye6225password",
+   	  	"DBSubnetGroupName": {"Ref": "DBSubnetGrouptest"},
+   	  	"PubliclyAccessible": "false"
+   	  }
+   }, "Routetest": {
+   	  "Type": "AWS::EC2::Route",
+   	  "Properties": {
+   	  	 "RouteTableId": {"Ref": "PublicRouteTabletest"},
+   	  	 "DestinationCidrBlock": "0.0.0.0/0",
+   	  	 "GatewayId": "igw-2415e45c"
+   	  }
+   }
   }  
 }

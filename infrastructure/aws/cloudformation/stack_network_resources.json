@@ -1,0 +1,31 @@
+{
+    "StackResources": [
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "ResourceStatus": "CREATE_COMPLETE", 
+            "ResourceType": "AWS::EC2::VPCGatewayAttachment", 
+            "Timestamp": "2018-02-21T22:23:08.023Z", 
+            "StackName": "test", 
+            "PhysicalResourceId": "test-Attach-HL3E1IPEMTWM", 
+            "LogicalResourceId": "AttachedGatewaytest"
+        }, 
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "ResourceStatus": "CREATE_COMPLETE", 
+            "ResourceType": "AWS::EC2::InternetGateway", 
+            "Timestamp": "2018-02-21T22:22:49.155Z", 
+            "StackName": "test", 
+            "PhysicalResourceId": "igw-2415e45c", 
+            "LogicalResourceId": "InternetGatewaytest"
+        }, 
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "ResourceStatus": "CREATE_COMPLETE", 
+            "ResourceType": "AWS::EC2::VPC", 
+            "Timestamp": "2018-02-21T22:22:50.027Z", 
+            "StackName": "test", 
+            "PhysicalResourceId": "vpc-acdc16d7", 
+            "LogicalResourceId": "VPCtest"
+        }
+    ]
+}
