@@ -1,11 +1,11 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
-   "IAMPolicyForEC2CodeDeploytestS3": {
+   "IAMPolicyForEC2CodeDeployAssignment6": {
      "Type": "AWS::IAM::Policy", 
      "Properties": {
-       "PolicyName": "IAMPolicyForEC2CodeDeploytestS3",
+       "PolicyName": "IAMPolicyForEC2CodeDeployAssignment6",
        "Roles": [{
-           "Ref": "CodeDeployEC2ServiceRoletestS3"
+           "Ref": "CodeDeployEC2ServiceRoleAssignment6"
        }],
        "PolicyDocument": {
            "Version": "2012-10-17",
@@ -16,17 +16,17 @@
                        "s3:List*"
                    ],
                    "Effect": "Allow",
-                   "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBuckettestS3"
+                   "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6"
                }
            ]
        }
      }
-   } ,"IAMPolicyForS3TravistestS3": {
+   } ,"IAMPolicyForS3TravisAssignment6": {
      "Type": "AWS::IAM::Policy", 
      "Properties": {
-       "PolicyName": "IAMPolicyForS3TravistestS3",
+       "PolicyName": "IAMPolicyForS3TravisAssignment6",
        "Roles": [{
-           "Ref": "TravisCodeDeployServiceRoletestS3"
+           "Ref": "TravisCodeDeployServiceRoleAssignment6"
        }],
        "PolicyDocument": {
            "Version": "2012-10-17",
@@ -37,18 +37,18 @@
                        "s3:putObject"
                    ],
                    "Resource": [
-                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBuckettestS3"
+                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6"
                    ]
                }
            ]
        }
      }
-   },"TravisCodeDeployPolicytestS3": {
+   },"TravisCodeDeployPolicyAssignment6": {
    	  "Type": "AWS::IAM::Policy",
    	  "Properties": {
-   	  	"PolicyName": "TravisCodeDeployPolicytestS3",
+   	  	"PolicyName": "TravisCodeDeployPolicyAssignment6",
         "Roles": [{
-            "Ref": "TravisCodeDeployServiceRoletestS3"
+            "Ref": "TravisCodeDeployServiceRoleAssignment6"
         }],
         "PolicyDocument": {
             "Version": "2012-10-17",
@@ -60,7 +60,7 @@
                         "codedeploy:GetApplicationRevision"
                     ],
                     "Resource": [
-                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationtestS3"
+                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6"
                     ]
                 },
                 {
@@ -70,7 +70,7 @@
                         "codedeploy:GetDeployment"
                     ],
                     "Resource": [
-                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationtestS3"
+                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6"
                     ]
                 },
                 {
@@ -87,7 +87,7 @@
             ]
         }
       }
-   	}, "CodeDeployEC2ServiceRoletestS3": {
+   	}, "CodeDeployEC2ServiceRoleAssignment6": {
            "Type": "AWS::IAM::Role",
            "Properties": {
                "AssumeRolePolicyDocument": {
@@ -104,9 +104,9 @@
                         }
                     ]
                },
-               "RoleName": "CodeDeployEC2ServiceRoletestS3"
+               "RoleName": "CodeDeployEC2ServiceRoleAssignment6"
            }
-    }, "TravisCodeDeployServiceRoletestS3": {
+    }, "TravisCodeDeployServiceRoleAssignment6": {
         "Type": "AWS::IAM::Role",
         "Properties": {
             "AssumeRolePolicyDocument": {
@@ -124,15 +124,15 @@
                 ] 
             }
         }
-    }, "S3BuildArtifactBuckettestS3": {
+    }, "S3BuildArtifactBucketAssignment6": {
         "Type": "AWS::S3::Bucket",
         "Properties": {
             "BucketName": "code-deploy.csye6225-spring2018-wux.tld"
         }
-    }, "CodeDeployApplicationtestS3": {
+    }, "CodeDeployApplicationAssignment6": {
         "Type": "AWS::CodeDeploy::Application",
         "Properties": {
-            "ApplicationName": "CodeDeployApplicationtestS3"
+            "ApplicationName": "CodeDeployApplicationAssignment6"
         }
     }
   }

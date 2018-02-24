@@ -17,6 +17,14 @@ script:
   - rm package-lock.json
   - npm install
   - ng build --prod --aot=false
+deploy:
+  on:
+    branch: master
+  provider: s3
+  assess_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: asdf
+  skip_cleanup: false
 
 notifications:
   email:
