@@ -12,8 +12,9 @@ script:
   - cd webapp
   - mvn clean verify
   - cd src/main/resources/static
-  - npm install -g @angular/cli
   - npm install
+  - npm uninstall --save-dev angular-cli
+  - npm install --save-dev @angular/cli@latest
   - ng build --prod
 
 notifications:
