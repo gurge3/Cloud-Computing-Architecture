@@ -11,25 +11,23 @@ before_install:
 install: true
 script:
   - cd webapp
-  - mvn clean verify
-  - cd src/main/resources/static
+  - mvn clean package
+  - cd ..
+  - cd frontend
   - rm -rf node_modules
   - rm package-lock.json
   - npm install
   - ng build --prod --aot=false
   - cd ..
-  - cd ..
-  - cd ..
-  - cd ..
-  - cd ..
+  - ls -al
 deploy:
   on:
     branch: master
-  provider: s3
-  assess_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: code-deploy.csye6225-spring2018-wux.tld
-  skip_cleanup: false
+  -provider: s3
+    assess_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: code-deploy.csye6225-spring2018-wux.tld
+    skip_cleanup: false
 
 notifications:
   email:

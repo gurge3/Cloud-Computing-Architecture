@@ -1,76 +1,106 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
-   "Instancetest": {
+   "InstanceAssignment6": {
      "Type": "AWS::EC2::Instance", 
      "Properties": {
        "ImageId" : "ami-66506c1c",
+	   "Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-Instance"}],
+	   "InstanceType": "t2.micro",
+	   "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe \n",
+                                "sudo apt-get update \n",
+                                "sudo apt-get install openjdk-8-jdk -y\n",
+                                "sudo apt-get install ruby -y \n",
+                                "sudo apt-get install wget -y \n",
+                                "sudo apt-get install python -y \n",
+								"sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \n",
+								"sudo apt-get install -y nodejs \n",
+								"sudo npm install npm@latest -g \n",
+								"sudo npm install @angular/cli \n",
+                                "sudo apt-get update \n",
+                                "sudo wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install \n",
+                                "sudo chmod +x ./install \n",
+                                "sudo ./install auto \n",
+                                "sudo service codedeploy-agent start \n",
+                                "sudo apt-get install tomcat8 -y \n",
+								"sudo export DB_USERNAME=root \n",
+								"sudo export DB_PASSWORD= \n",
+                                "sudo service tomcat8 restart \n"
+                            ]
+                        ]
+                    }
+				},
        "DisableApiTermination" : "false",
        "BlockDeviceMappings" : [{
        	"DeviceName": "/dev/sdm",
        	"Ebs" : {
            "VolumeType": "gp2",
-           "VolumeSize": "20"
+           "VolumeSize": "16"
           }
         }, {
        	"DeviceName" : "/dev/sdk",
        	"NoDevice" : {}
         }]
       }
-    },"PrivateRouteTabletest": {
+    },"PrivateRouteTableAssignment6": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-acdc16d7",
-   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-private-route-table"}]
+   	  	"VpcId": "vpc-6628f81d",
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-private-route-table"}]
    	  }
-   }, "PublicRouteTabletest": {
+   }, "PublicRouteTableAssignment6": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-acdc16d7",
-   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-public-route-table"}]
+   	  	"VpcId": "vpc-6628f81d",
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-public-route-table"}]
    	  }
-   }, "SubnetWebServertest": {
+   }, "SubnetWebServerAssignment6": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-acdc16d7",
+   	  	"VpcId": "vpc-6628f81d",
 		"CidrBlock": "10.0.0.0/24",
 		"AvailabilityZone": "us-east-1a",
-   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-web-server-subnet-table"}]
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-web-server-subnet-table"}]
    	  }
-   }, "SubnetDatabasetest": {
+   }, "SubnetDatabaseAssignment6": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-acdc16d7",
+   	  	"VpcId": "vpc-6628f81d",
 		"CidrBlock": "10.0.1.0/24",
 		"AvailabilityZone": "us-east-1b",
-   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-database-subnet-table"}]
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-database-subnet-table"}]
    	  }
-   }, "DBSubnetGrouptest": {
+   }, "DBSubnetGroupAssignment6": {
    	  "Type": "AWS::RDS::DBSubnetGroup",
    	  "Properties": {
    	  	"DBSubnetGroupDescription": "DB Subnet",
 		"SubnetIds": [
-		 	{"Ref": "SubnetWebServertest"},
-			{"Ref": "SubnetDatabasetest"}
+		 	{"Ref": "SubnetWebServerAssignment6"},
+			{"Ref": "SubnetDatabaseAssignment6"}
 		],
-   	  	"Tags": [{"Key": "name", "Value": "test-csye6225-database-subnet-group"}]
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6-csye6225-database-subnet-group"}]
    	  }
-   }, "PublicTableAssociationtest": {
+   }, "PublicTableAssociationAssignment6": {
    	  "Type": "AWS::EC2::SubnetRouteTableAssociation",
    	  "Properties": {
-   	  	"RouteTableId": {"Ref": "PublicRouteTabletest"},
-		"SubnetId": {"Ref": "SubnetWebServertest"}
+   	  	"RouteTableId": {"Ref": "PublicRouteTableAssignment6"},
+		"SubnetId": {"Ref": "SubnetWebServerAssignment6"}
    	  }
-   }, "PrivateTableAssociationtest": {
+   }, "PrivateTableAssociationAssignment6": {
    	  "Type": "AWS::EC2::SubnetRouteTableAssociation",
    	  "Properties": {
-   	  	"RouteTableId": {"Ref": "PrivateRouteTabletest"},
-		"SubnetId": {"Ref": "SubnetDatabasetest"}
+   	  	"RouteTableId": {"Ref": "PrivateRouteTableAssignment6"},
+		"SubnetId": {"Ref": "SubnetDatabaseAssignment6"}
    	  }
-   }, "EC2SecurityGrouptest": {
+   }, "EC2SecurityGroupAssignment6": {
    	  "Type": "AWS::EC2::SecurityGroup",
    	  "Properties": {
    	  	"GroupDescription": "Allow http to client host",
-   	  	"VpcId": "vpc-acdc16d7",
+   	  	"VpcId": "vpc-6628f81d",
    	  	"SecurityGroupIngress": [{
    	  		"IpProtocol": "tcp",
    	  		"FromPort": "22",
@@ -93,16 +123,16 @@
    	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
-   }, "RDSDBSecurityGrouptest": {
+   }, "RDSDBSecurityGroupAssignment6": {
    	  "Type": "AWS::RDS::DBSecurityGroup",
    	  "Properties": {
-   	  	"EC2VpcId": "vpc-acdc16d7",
+   	  	"EC2VpcId": "vpc-6628f81d",
    	  	"DBSecurityGroupIngress": [{
-   	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGrouptest"}
+   	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroupAssignment6"}
    	  	}],
    	  	"GroupDescription": "Front end access"
    	  }
-   }, "Databasetest": {
+   }, "DatabaseAssignment6": {
    	  "Type": "AWS::DynamoDB::Table",
    	  "Properties": {
    	  	"TableName": "csye6225",
@@ -123,7 +153,7 @@
 			"WriteCapacityUnits": 5
 		}
    	  }
-   }, "RDSDBInstancetest": {
+   }, "RDSDBInstanceAssignment6": {
    	  "Type": "AWS::RDS::DBInstance",
    	  "Properties": {
    	  	"DBName": "csye6225",
@@ -133,15 +163,15 @@
    	  	"EngineVersion": "5.6.37",
    	  	"MasterUsername": "csye6225master",
    	  	"MasterUserPassword": "csye6225password",
-   	  	"DBSubnetGroupName": {"Ref": "DBSubnetGrouptest"},
+   	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroupAssignment6"},
    	  	"PubliclyAccessible": "false"
    	  }
-   }, "Routetest": {
+   }, "RouteAssignment6": {
    	  "Type": "AWS::EC2::Route",
    	  "Properties": {
-   	  	 "RouteTableId": {"Ref": "PublicRouteTabletest"},
+   	  	 "RouteTableId": {"Ref": "PublicRouteTableAssignment6"},
    	  	 "DestinationCidrBlock": "0.0.0.0/0",
-   	  	 "GatewayId": "igw-2415e45c"
+   	  	 "GatewayId": "igw-f7708c8f"
    	  }
    }
   }  

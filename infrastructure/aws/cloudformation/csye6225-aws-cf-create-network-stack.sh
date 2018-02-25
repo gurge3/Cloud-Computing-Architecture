@@ -1,9 +1,10 @@
+#!/bin/bash
 STACK_NAME=$1
 echo "The stack name you entered: $STACK_NAME"
 echo "Current directory: $PWD"
 
 ##Procedures for exporting JSON template for creating Intenet Gateway
-cat <<EOF > "$PWD/resources.json"
+cat <<EOF > "$PWD/network-resources.json"
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
    "InternetGateway$STACK_NAME": {
@@ -31,5 +32,9 @@ EOF
 
 ##Procedures for creating cloudformation stack with VPC
 echo "Creating stack along with all the resources naming $STACK_NAME"
-aws cloudformation create-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/resources.json"
-echo "Job Finished"
+aws cloudformation create-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/network-resources.json"
+if [[ $? == "0" ]]; then
+	echo "Job Finished"
+else
+	echo "Job Failed"
+fi

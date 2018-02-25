@@ -1,3 +1,4 @@
+#!/bin/bash
 STACK_NAME=$1
 echo "The stack name you entered: $STACK_NAME"
 echo "Current directory: $PWD"
@@ -147,5 +148,9 @@ EOF
 
 ##Procedures for creating cloudformation stack with VPC
 echo "Creating stack along with all the resources naming $STACK_NAME"
-aws cloudformation update-stack --capabilities "CAPABILITY_NAMED_IAM" --stack-name "$STACK_NAME" --template-body "file://$PWD/cs6225-aws-cf-create-ci-cd.json"
-echo "Job Finished"
+aws cloudformation create-stack --capabilities "CAPABILITY_NAMED_IAM" --stack-name "$STACK_NAME" --template-body "file://$PWD/cs6225-aws-cf-create-ci-cd.json"
+if [[ $? == "0" ]]; then
+	echo "Job Finished"
+else
+	echo "Job Failed"
+fi

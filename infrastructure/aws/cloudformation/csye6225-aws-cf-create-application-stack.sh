@@ -1,8 +1,13 @@
 #!/bin/bash
 STACK_NAME=$1
+NETWORK_STACK_NAME=$2
+if [[ $NETWORK_STACK_NAME == "" ]]; then
+	echo "Please enter network stack name!"
+	exit 1
+fi
 echo "The stack name you entered: $STACK_NAME"
 echo "Current directory: $PWD"
-DESCRIBE_RESOURCES=`aws cloudformation describe-stack-resources --stack-name $STACK_NAME`
+DESCRIBE_RESOURCES=`aws cloudformation describe-stack-resources --stack-name $NETWORK_STACK_NAME`
 echo "$DESCRIBE_RESOURCES" > "$PWD/stack_network_resources.json"
 while IFS= read -r i; do
 	j=($i)
@@ -50,7 +55,6 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                                 "sudo apt-get install tomcat8 -y \n",
 								"sudo export DB_USERNAME=root \n",
 								"sudo export DB_PASSWORD= \n",
-                                "sudo echo \"JAVA_OPTS=\\\"\\${JAVA_OPTS} -Dspring.profiles.active=aws\\\"\" >> /etc/default/tomcat8 \n",
                                 "sudo service tomcat8 restart \n"
                             ]
                         ]
@@ -203,4 +207,8 @@ EOF
 ##Procedures for creating cloudformation stack with VPC
 echo "Creating stack along with all the resources naming $STACK_NAME"
 aws cloudformation update-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/csye6225-cf-application.json"
-echo "Job Finished"
+if [[ $? == "0" ]]; then
+	echo "Job Finished"
+else
+	echo "Job Failed"
+fi

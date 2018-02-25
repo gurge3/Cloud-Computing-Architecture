@@ -1,31 +1,31 @@
 {
     "StackResources": [
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/ace3a290-198e-11e8-a2ef-500c28680ac6", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::VPCGatewayAttachment", 
-            "Timestamp": "2018-02-21T22:23:08.023Z", 
-            "StackName": "test", 
-            "PhysicalResourceId": "test-Attach-HL3E1IPEMTWM", 
-            "LogicalResourceId": "AttachedGatewaytest"
+            "Timestamp": "2018-02-24T18:15:59.557Z", 
+            "StackName": "Assignment6Network", 
+            "PhysicalResourceId": "Assig-Attac-1T0YC6T857ZV0", 
+            "LogicalResourceId": "AttachedGatewayAssignment6Network"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/ace3a290-198e-11e8-a2ef-500c28680ac6", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::InternetGateway", 
-            "Timestamp": "2018-02-21T22:22:49.155Z", 
-            "StackName": "test", 
-            "PhysicalResourceId": "igw-2415e45c", 
-            "LogicalResourceId": "InternetGatewaytest"
+            "Timestamp": "2018-02-24T18:15:41.173Z", 
+            "StackName": "Assignment6Network", 
+            "PhysicalResourceId": "igw-f7708c8f", 
+            "LogicalResourceId": "InternetGatewayAssignment6Network"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/test/a733d0d0-1755-11e8-b82d-500abe228429", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/ace3a290-198e-11e8-a2ef-500c28680ac6", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::VPC", 
-            "Timestamp": "2018-02-21T22:22:50.027Z", 
-            "StackName": "test", 
-            "PhysicalResourceId": "vpc-acdc16d7", 
-            "LogicalResourceId": "VPCtest"
+            "Timestamp": "2018-02-24T18:15:41.379Z", 
+            "StackName": "Assignment6Network", 
+            "PhysicalResourceId": "vpc-6628f81d", 
+            "LogicalResourceId": "VPCAssignment6Network"
         }
     ]
 }
