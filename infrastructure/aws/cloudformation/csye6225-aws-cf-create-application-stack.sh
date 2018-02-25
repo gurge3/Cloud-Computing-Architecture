@@ -32,7 +32,10 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
-	   "UserData": {
+	   "SecurityGroups": [
+		   {Ref: "EC2SecurityGroup$STACK_NAME"}
+	   ],
+	   "UserData": {s
                     "Fn::Base64": {
                         "Fn::Join": [
                             "",
@@ -192,6 +195,9 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  	"MasterUsername": "csye6225master",
    	  	"MasterUserPassword": "csye6225password",
    	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroup$STACK_NAME"},
+		"DBSecurityGroups": [
+			{"Ref": "RDSDBSecurityGroup$STACK_NAME"}
+		],
    	  	"PubliclyAccessible": "false"
    	  }
    }, "Route$STACK_NAME": {

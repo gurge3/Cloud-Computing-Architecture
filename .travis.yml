@@ -12,7 +12,7 @@ install: true
 script:
   - cd webapp
   - mvn clean package
-  - mdkir build
+  - mkdir build
   - cd target
   - cp webapp-0.0.1-SNAPSHOT.war ../build
   - cd ..
