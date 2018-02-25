@@ -37,7 +37,9 @@ deploy:
     assess_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: code-deploy.csye6225-spring2018-wux.tld
-    skip_cleanup: false
+    skip_cleanup: true
+    on:
+      branch: master
 
 
 notifications:
