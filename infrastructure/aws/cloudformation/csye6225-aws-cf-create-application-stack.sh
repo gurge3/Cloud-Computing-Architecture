@@ -206,7 +206,7 @@ EOF
 
 ##Procedures for creating cloudformation stack with VPC
 echo "Creating stack along with all the resources naming $STACK_NAME"
-aws cloudformation update-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/csye6225-cf-application.json"
+aws cloudformation create-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/csye6225-cf-application.json"
 if [[ $? == "0" ]]; then
 	echo "Job Finished"
 else

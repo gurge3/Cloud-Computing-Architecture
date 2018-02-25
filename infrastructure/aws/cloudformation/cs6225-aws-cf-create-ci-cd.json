@@ -1,11 +1,11 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
-   "IAMPolicyForEC2CodeDeployAssignment6": {
+   "IAMPolicyForEC2CodeDeployAssignment6CICD": {
      "Type": "AWS::IAM::Policy", 
      "Properties": {
-       "PolicyName": "IAMPolicyForEC2CodeDeployAssignment6",
+       "PolicyName": "IAMPolicyForEC2CodeDeployAssignment6CICD",
        "Roles": [{
-           "Ref": "CodeDeployEC2ServiceRoleAssignment6"
+           "Ref": "CodeDeployEC2ServiceRoleAssignment6CICD"
        }],
        "PolicyDocument": {
            "Version": "2012-10-17",
@@ -16,17 +16,17 @@
                        "s3:List*"
                    ],
                    "Effect": "Allow",
-                   "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6"
+                   "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6CICD"
                }
            ]
        }
      }
-   } ,"IAMPolicyForS3TravisAssignment6": {
+   } ,"IAMPolicyForS3TravisAssignment6CICD": {
      "Type": "AWS::IAM::Policy", 
      "Properties": {
-       "PolicyName": "IAMPolicyForS3TravisAssignment6",
+       "PolicyName": "IAMPolicyForS3TravisAssignment6CICD",
        "Roles": [{
-           "Ref": "TravisCodeDeployServiceRoleAssignment6"
+           "Ref": "TravisCodeDeployServiceRoleAssignment6CICD"
        }],
        "PolicyDocument": {
            "Version": "2012-10-17",
@@ -37,18 +37,18 @@
                        "s3:putObject"
                    ],
                    "Resource": [
-                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6"
+                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6CICD"
                    ]
                }
            ]
        }
      }
-   },"TravisCodeDeployPolicyAssignment6": {
+   },"TravisCodeDeployPolicyAssignment6CICD": {
    	  "Type": "AWS::IAM::Policy",
    	  "Properties": {
-   	  	"PolicyName": "TravisCodeDeployPolicyAssignment6",
+   	  	"PolicyName": "TravisCodeDeployPolicyAssignment6CICD",
         "Roles": [{
-            "Ref": "TravisCodeDeployServiceRoleAssignment6"
+            "Ref": "TravisCodeDeployServiceRoleAssignment6CICD"
         }],
         "PolicyDocument": {
             "Version": "2012-10-17",
@@ -60,7 +60,7 @@
                         "codedeploy:GetApplicationRevision"
                     ],
                     "Resource": [
-                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6"
+                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6CICD"
                     ]
                 },
                 {
@@ -70,7 +70,7 @@
                         "codedeploy:GetDeployment"
                     ],
                     "Resource": [
-                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6"
+                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplicationAssignment6CICD"
                     ]
                 },
                 {
@@ -87,7 +87,7 @@
             ]
         }
       }
-   	}, "CodeDeployEC2ServiceRoleAssignment6": {
+   	}, "CodeDeployEC2ServiceRoleAssignment6CICD": {
            "Type": "AWS::IAM::Role",
            "Properties": {
                "AssumeRolePolicyDocument": {
@@ -104,9 +104,9 @@
                         }
                     ]
                },
-               "RoleName": "CodeDeployEC2ServiceRoleAssignment6"
+               "RoleName": "CodeDeployEC2ServiceRoleAssignment6CICD"
            }
-    }, "TravisCodeDeployServiceRoleAssignment6": {
+    }, "TravisCodeDeployServiceRoleAssignment6CICD": {
         "Type": "AWS::IAM::Role",
         "Properties": {
             "AssumeRolePolicyDocument": {
@@ -124,15 +124,15 @@
                 ] 
             }
         }
-    }, "S3BuildArtifactBucketAssignment6": {
+    }, "S3BuildArtifactBucketAssignment6CICD": {
         "Type": "AWS::S3::Bucket",
         "Properties": {
             "BucketName": "code-deploy.csye6225-spring2018-wux.tld"
         }
-    }, "CodeDeployApplicationAssignment6": {
+    }, "CodeDeployApplicationAssignment6CICD": {
         "Type": "AWS::CodeDeploy::Application",
         "Properties": {
-            "ApplicationName": "CodeDeployApplicationAssignment6"
+            "ApplicationName": "CodeDeployApplicationAssignment6CICD"
         }
     }
   }

@@ -1,0 +1,23 @@
+{"AWSTemplateFormatVersion": "2010-09-09",
+ "Resources": {
+   "InternetGatewayAssignment6Network": {
+     "Type": "AWS::EC2::InternetGateway", 
+     "Properties": {
+       "Tags": [{"Key": "Name", "Value": "Assignment6Network-csye6225-InternetGateway"}]
+     }
+   }
+  ,"VPCAssignment6Network": {
+     "Type": "AWS::EC2::VPC", 
+     "Properties": {
+       "CidrBlock": "10.0.0.0/16",
+       "Tags": [{"Key": "Name", "Value": "Assignment6Network-csye6225-vpc"}]
+     }
+   },"AttachedGatewayAssignment6Network": {
+   	  "Type": "AWS::EC2::VPCGatewayAttachment",
+   	  "Properties": {
+   	  	"VpcId": {"Ref": "VPCAssignment6Network"},
+   	  	"InternetGatewayId": {"Ref": "InternetGatewayAssignment6Network"}
+   	  }
+   }
+  }  
+}

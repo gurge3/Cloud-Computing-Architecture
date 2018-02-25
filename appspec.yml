@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+
+files:
+  - source: ./appspec.yml
+    destination: /home/ubuntu
+  - source: ./frontend
+    destination: /home/ubuntu/frontend
+  - source: ./webapp/build/libs/ROOT.war
+    destination: /var/lib/tomcat7/webapps
+
+hooks:
+  AfterInstall:
+   - location: ./testDeploy.sh
+     timeout: 180
+     runas: ubuntu
+  ApplicationStart:
+   - location: ./applicationStart.sh
+     timeout: 100
+     runas: ubuntu
