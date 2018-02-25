@@ -12,15 +12,16 @@ install: true
 script:
   - cd webapp
   - mvn clean package
+  - mdkir build
+  - cd target
+  - cp webapp-0.0.1-SNAPSHOT.war ../build
+  - cd ..
   - cd ..
   - cd frontend
   - rm -rf node_modules
   - rm package-lock.json
   - npm install
   - ng build --prod --aot=false
-  - mdkir build
-  - cd target
-  - cp webapp-0.0.1-SNAPSHOT.war ../build
   - cd ..
   - ls -al
 deploy:
