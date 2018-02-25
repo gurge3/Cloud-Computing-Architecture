@@ -12,9 +12,8 @@ install: true
 script:
   - cd webapp
   - mvn clean package
-  - mkdir build
   - cd target
-  - cp webapp-0.0.1-SNAPSHOT.war ../build
+  - cp webapp-0.0.1-SNAPSHOT.war ../
   - cd ..
   - cd ..
   - cd frontend
@@ -24,6 +23,15 @@ script:
   - ng build --prod --aot=false
   - cd ..
   - ls -al
+after_success:
+  - pwd
+  - cd webapp
+  - cd target
+  - ls -al
+  - cp webapp-0.0.1-SNAPSHOT.war ../
+  - cd ..
+  - ls -al
+  - cd ..
 deploy:
   - provider: s3
     assess_key_id: $AWS_ACCESS_KEY_ID

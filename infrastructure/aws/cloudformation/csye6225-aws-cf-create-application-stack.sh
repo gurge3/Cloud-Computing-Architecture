@@ -32,9 +32,12 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
-	   "SecurityGroups": [
-		   {"Ref": "EC2SecurityGroup$STACK_NAME"}
-	   ],
+	   "NetworkInterfaces": [{
+			"AssociatePublicIpAddress": "true",
+		   "DeviceIndex": "0",
+		   "GroupSet": [{"Ref": "EC2SecurityGroup$STACK_NAME"}],
+		   "SubnetId": {"Ref": "SubnetWebServer$STACK_NAME"}
+	   }],
 	   "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -146,6 +149,11 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  		"FromPort": "443",
    	  		"ToPort": "443",
    	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "3306",
+   	  		"ToPort": "3306",
+   	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
    }, "RDSDBSecurityGroup$STACK_NAME": {
@@ -155,8 +163,6 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 		"Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-RDSDBSecurityGroup"}],
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroup$STACK_NAME"}
-   	  	}, {
-   	  		"CIDRIP": "0.0.0.0/3306"
    	  	}],
    	  	"GroupDescription": "Front end access"
    	  }
