@@ -32,6 +32,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
+	   "KeyName": "secret",
 	   "NetworkInterfaces": [{
 			"AssociatePublicIpAddress": "true",
 		   "DeviceIndex": "0",

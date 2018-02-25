@@ -40,6 +40,13 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+  - provider: codedeploy
+    assess_key_id: $AWS_ACCESS_KEY_ID
+    bucket: code-deploy.csye6225-spring2018-wux.tld
+    deployment_group: deploymentGroup
+    region: us-east-1
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    wait-until-deployed: true
 
 
 notifications:

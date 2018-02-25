@@ -6,6 +6,7 @@
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
+	   "KeyName": "secret",
 	   "NetworkInterfaces": [{
 			"AssociatePublicIpAddress": "true",
 		   "DeviceIndex": "0",
