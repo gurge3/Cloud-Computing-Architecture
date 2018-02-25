@@ -33,9 +33,9 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
 	   "SecurityGroups": [
-		   {Ref: "EC2SecurityGroup$STACK_NAME"}
+		   {"Ref": "EC2SecurityGroup$STACK_NAME"}
 	   ],
-	   "UserData": {s
+	   "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
                             "",
@@ -156,10 +156,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroup$STACK_NAME"}
    	  	}, {
-   	  		"IpProtocol": "tcp",
-   	  		"FromPort": "3306",
-   	  		"ToPort": "3306",
-   	  		"CidrIp": "0.0.0.0/0"
+   	  		"CIDRIP": "0.0.0.0/3306"
    	  	}],
    	  	"GroupDescription": "Front end access"
    	  }

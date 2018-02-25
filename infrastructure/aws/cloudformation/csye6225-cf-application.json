@@ -6,6 +6,9 @@
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
+	   "SecurityGroups": [
+		   {"Ref": "EC2SecurityGroupAssignment6Application"}
+	   ],
 	   "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -100,6 +103,7 @@
    	  "Type": "AWS::EC2::SecurityGroup",
    	  "Properties": {
    	  	"GroupDescription": "Allow http to client host",
+		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-EC2SecurityGroup"}],
    	  	"VpcId": "vpc-1cf32167",
    	  	"SecurityGroupIngress": [{
    	  		"IpProtocol": "tcp",
@@ -116,19 +120,17 @@
    	  		"FromPort": "443",
    	  		"ToPort": "443",
    	  		"CidrIp": "0.0.0.0/0"
-   	  	}, {
-   	  		"IpProtocol": "tcp",
-   	  		"FromPort": "3306",
-   	  		"ToPort": "3306",
-   	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
    }, "RDSDBSecurityGroupAssignment6Application": {
    	  "Type": "AWS::RDS::DBSecurityGroup",
    	  "Properties": {
    	  	"EC2VpcId": "vpc-1cf32167",
+		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-RDSDBSecurityGroup"}],
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroupAssignment6Application"}
+   	  	}, {
+   	  		"CIDRIP": "0.0.0.0/3306"
    	  	}],
    	  	"GroupDescription": "Front end access"
    	  }
@@ -164,6 +166,9 @@
    	  	"MasterUsername": "csye6225master",
    	  	"MasterUserPassword": "csye6225password",
    	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroupAssignment6Application"},
+		"DBSecurityGroups": [
+			{"Ref": "RDSDBSecurityGroupAssignment6Application"}
+		],
    	  	"PubliclyAccessible": "false"
    	  }
    }, "RouteAssignment6Application": {
