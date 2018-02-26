@@ -30,7 +30,7 @@ after_success:
   - rm -rf node_modules
   - ls -al
   - cd ..
-  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war
+  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war *.sh *.yml
   - ls -al
   - pwd
   - cd codedeploy_artifact
