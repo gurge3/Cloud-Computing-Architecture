@@ -30,8 +30,16 @@ after_success:
   - rm -rf node_modules
   - ls -al
   - cd ..
+  - cd webapp
+  - mkdir build
+  - cd build
+  - mkdir libs
   - mv webapp/target/webapp-ROOT.war webapp/target/ROOT.war
-  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/ROOT.war *.sh *.yml
+  - mv webapp/target/ROOT.war libs
+  - cd ..
+  - cd ..
+  - cd ..
+  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/build/libs/ROOT.war *.sh *.yml
   - ls -al
   - pwd
   - cd codedeploy_artifact
