@@ -1,11 +1,20 @@
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
+   "IAMProfileAssignment6Application": {
+		"Type": "AWS::IAM::InstanceProfile",
+		"Properties": {
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1RPJ55FZ99IVX"]
+		}
+   },
    "InstanceAssignment6Application": {
      "Type": "AWS::EC2::Instance", 
      "Properties": {
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
+	   "IamInstanceProfile": {
+		  "Ref": "IAMProfileAssignment6Application" 
+	   },
 	   "KeyName": "secret",
 	   "NetworkInterfaces": [{
 			"AssociatePublicIpAddress": "true",

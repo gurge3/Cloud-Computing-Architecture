@@ -32,8 +32,6 @@ after_success:
   - cd ..
   - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war
   - ls -al
-  - mv csye6225-web-app-$TRAVIS_JOB_NUMBER.zip codedeploy_artifact/
-  - ls -al
   - pwd
   - cd codedeploy_artifact
   - ls -al

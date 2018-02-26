@@ -62,33 +62,32 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
             "Statement": [
                 {
                     "Effect": "Allow",
-                    "Action": [
-                        "codedeploy:RegisterApplicationRevision",
-                        "codedeploy:GetApplicationRevision"
-                    ],
+                    "Action": "*",
                     "Resource": [
                          "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplication$STACK_NAME"
                     ]
                 },
                 {
                     "Effect": "Allow",
-                    "Action": [
-                        "codedeploy:CreateDeployment",
-                        "codedeploy:GetDeployment"
-                    ],
+                    "Action": "*",
                     "Resource": [
                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplication$STACK_NAME"
                     ]
                 },
                 {
                     "Effect": "Allow",
-                    "Action": [
-                        "codedeploy:GetDeploymentConfig"
-                    ],
+                    "Action": "*",
                     "Resource": [
                         "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.OneAtATime",
                         "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.HalfAtATime",
                         "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.AllAtOnce"
+                    ]
+                }, 
+                {
+                    "Effect": "Allow",
+                    "Action": "ec2:*",
+                    "Resource": [
+                       "*"
                     ]
                 }
             ]
@@ -106,7 +105,10 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                             ],
                             "Effect": "Allow",
                             "Principal": {
-                                "Service": "s3.amazonaws.com"
+                                "Service": [
+                                    "s3.amazonaws.com",
+                                    "ec2.amazonaws.com"
+                                ]
                             }
                         }
                     ]
@@ -122,7 +124,10 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                     {
                         "Effect": "Allow",
                         "Principal": {
-                            "Service": "codedeploy.amazonaws.com"
+                            "Service": [
+                                "codedeploy.amazonaws.com",
+                                "ec2.amazonaws.com"
+                            ]
                         },
                         "Action": [
                             "sts:AssumeRole"

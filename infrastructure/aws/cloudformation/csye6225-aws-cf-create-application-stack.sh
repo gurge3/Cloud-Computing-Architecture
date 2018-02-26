@@ -1,14 +1,15 @@
 #!/bin/bash
 STACK_NAME=$1
 NETWORK_STACK_NAME=$2
+CICD_STACK_NAME=$3
 if [[ $NETWORK_STACK_NAME == "" ]]; then
 	echo "Please enter network stack name!"
 	exit 1
 fi
 echo "The stack name you entered: $STACK_NAME"
 echo "Current directory: $PWD"
-DESCRIBE_RESOURCES=`aws cloudformation describe-stack-resources --stack-name $NETWORK_STACK_NAME`
-echo "$DESCRIBE_RESOURCES" > "$PWD/stack_network_resources.json"
+DESCRIBE_NETWORK_RESOURCES=`aws cloudformation describe-stack-resources --stack-name $NETWORK_STACK_NAME`
+echo "$DESCRIBE_NETWORK_RESOURCES" > "$PWD/stack_network_resources.json"
 while IFS= read -r i; do
 	j=($i)
 	if [[ ${j[0]} == "AWS::EC2::VPC" ]]; then
@@ -22,16 +23,37 @@ while IFS= read -r i; do
 	fi
 done <<< "$(jq -c -r '.StackResources[] | .ResourceType + " " + .PhysicalResourceId' $PWD/stack_network_resources.json)"
 
+DESCRIBE_CICD_RESOURCES=`aws cloudformation describe-stack-resources --stack-name $CICD_STACK_NAME`
+echo "$DESCRIBE_CICD_RESOURCES" > "$PWD/stack_cicd_resources.json"
+while IFS= read -r i; do
+	j=($i)
+	if [[ ${j[0]} == *"TravisCodeDeployServiceRole"* ]]; then
+		ROLE_ID=${j[1]}
+		export ROLE_ID
+		echo "Found ROLE_ID: $ROLE_ID"
+	fi
+done <<< "$(jq -c -r '.StackResources[] | .LogicalResourceId + " " + .PhysicalResourceId' $PWD/stack_cicd_resources.json)"
+
+
 ##Procedures for exporting JSON template for creating Intenet Gateway
 cat <<EOF > "$PWD/csye6225-cf-application.json"
 {"AWSTemplateFormatVersion": "2010-09-09",
  "Resources": {
+   "IAMProfile$STACK_NAME": {
+		"Type": "AWS::IAM::InstanceProfile",
+		"Properties": {
+			"Roles": ["$ROLE_ID"]
+		}
+   },
    "Instance$STACK_NAME": {
      "Type": "AWS::EC2::Instance", 
      "Properties": {
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
 	   "InstanceType": "t2.micro",
+	   "IamInstanceProfile": {
+		  "Ref": "IAMProfile$STACK_NAME" 
+	   },
 	   "KeyName": "secret",
 	   "NetworkInterfaces": [{
 			"AssociatePublicIpAddress": "true",
@@ -218,7 +240,7 @@ EOF
 
 ##Procedures for creating cloudformation stack with VPC
 echo "Creating stack along with all the resources naming $STACK_NAME"
-aws cloudformation create-stack --stack-name "$STACK_NAME" --template-body "file://$PWD/csye6225-cf-application.json"
+aws cloudformation create-stack --capabilities "CAPABILITY_IAM" --stack-name "$STACK_NAME" --template-body "file://$PWD/csye6225-cf-application.json"
 if [[ $? == "0" ]]; then
 	echo "Job Finished"
 else
