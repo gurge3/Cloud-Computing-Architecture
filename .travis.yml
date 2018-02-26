@@ -27,7 +27,7 @@ after_success:
   - pwd
   - mkdir codedeploy_artifact
   - cd frontend
-  - rm -f node_modules
+  - rm -rf node_modules
   - ls -al
   - cd ..
   - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war
