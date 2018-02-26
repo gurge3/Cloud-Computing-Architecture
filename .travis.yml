@@ -13,6 +13,7 @@ script:
   - cd webapp
   - mvn clean package
   - cd target
+  - ls -al
   - cp ROOT.war ../
   - cd ..
   - cd ..
