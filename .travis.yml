@@ -38,7 +38,6 @@ after_success:
   - mv webapp/target/ROOT.war libs
   - cd ..
   - cd ..
-  - cd ..
   - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/build/libs/ROOT.war *.sh *.yml
   - ls -al
   - pwd
