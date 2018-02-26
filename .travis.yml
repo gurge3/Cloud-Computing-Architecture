@@ -14,7 +14,6 @@ script:
   - mvn clean package
   - cd target
   - ls -al
-  - cp ROOT.war ../
   - cd ..
   - cd ..
   - cd frontend
@@ -31,6 +30,7 @@ after_success:
   - rm -rf node_modules
   - ls -al
   - cd ..
+  - mv webapp/target/webapp-ROOT.war webapp/target/ROOT.war
   - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/ROOT.war *.sh *.yml
   - ls -al
   - pwd
