@@ -13,7 +13,7 @@ script:
   - cd webapp
   - mvn clean package
   - cd target
-  - cp webapp-0.0.1-SNAPSHOT.war ../
+  - cp ROOT.war ../
   - cd ..
   - cd ..
   - cd frontend
@@ -30,7 +30,7 @@ after_success:
   - rm -rf node_modules
   - ls -al
   - cd ..
-  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war *.sh *.yml
+  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/ROOT.war *.sh *.yml
   - ls -al
   - pwd
   - cd codedeploy_artifact
