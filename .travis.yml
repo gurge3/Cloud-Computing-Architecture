@@ -25,13 +25,17 @@ script:
   - ls -al
 after_success:
   - pwd
-  - cd webapp
-  - cd target
+  - mkdir codedeploy_artifact
+  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/target/webapp-0.0.1-SNAPSHOT.war
   - ls -al
-  - cp webapp-0.0.1-SNAPSHOT.war ../
-  - cd ..
+  - mv csye6225-web-app-$TRAVIS_JOB_NUMBER.zip codedeploy_artifact/
+  - ls -al
+  - pwd
+  - cd codedeploy_artifact
   - ls -al
   - cd ..
+  - pwd
+  - ls -al
 deploy:
   - provider: s3
     assess_key_id: $AWS_ACCESS_KEY_ID
@@ -43,6 +47,9 @@ deploy:
   - provider: codedeploy
     assess_key_id: $AWS_ACCESS_KEY_ID
     bucket: code-deploy.csye6225-spring2018-wux.tld
+    bundle_type: zip
+    key: csye6225-web-app-$TRAVIS_JOB_NUMBER.zip
+    application: CodeDeployApplicationAssignment6CICD
     deployment_group: deploymentGroup
     region: us-east-1
     secret_access_key: $AWS_SECRET_ACCESS_KEY
