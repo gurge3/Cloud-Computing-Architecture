@@ -8,6 +8,8 @@ files:
     destination: /home/ubuntu/frontend
   - source: ./webapp/build/libs/ROOT.war
     destination: /var/lib/tomcat8/webapps
+  - source: ./webapp/database/travis.sql
+    destination: /var/lib/tomcat8/webapps
 
 hooks:
   AfterInstall:

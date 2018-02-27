@@ -38,7 +38,7 @@ after_success:
   - cd ..
   - mv webapp/target/webapp-ROOT.war webapp/target/ROOT.war
   - mv webapp/target/ROOT.war webapp/build/libs
-  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/build/libs/ROOT.war *.sh *.yml
+  - zip -r csye6225-web-app-$TRAVIS_JOB_NUMBER.zip frontend/ webapp/build/libs/ROOT.war webapp/database/travis.sql *.sh *.yml
   - ls -al
   - pwd
   - cd codedeploy_artifact

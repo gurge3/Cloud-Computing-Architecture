@@ -19,8 +19,9 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
            "Statement": [
                {
                    "Action": [
-                       "s3:Get*",
-                       "s3:List*"
+                       "s3:*",
+                       "ec2:*",
+                       "codedeploy:*"
                    ],
                    "Effect": "Allow",
                    "Resource": "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucket$STACK_NAME"
@@ -41,7 +42,9 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                {
                    "Effect": "Allow",
                    "Action": [
-                       "s3:putObject"
+                       "s3:*",
+                       "codedeploy:*",
+                       "ec2:*"
                    ],
                    "Resource": [
                        "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucket$STACK_NAME"
@@ -62,32 +65,13 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
             "Statement": [
                 {
                     "Effect": "Allow",
-                    "Action": "*",
+                    "Action": [
+                        "s3:*",
+                        "ec2:*",
+                        "codedeploy:*"
+                    ],
                     "Resource": [
-                         "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplication$STACK_NAME"
-                    ]
-                },
-                {
-                    "Effect": "Allow",
-                    "Action": "*",
-                    "Resource": [
-                        "arn:aws:codedeploy:us-east-1:377915458523:application:CodeDeployApplication$STACK_NAME"
-                    ]
-                },
-                {
-                    "Effect": "Allow",
-                    "Action": "*",
-                    "Resource": [
-                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.OneAtATime",
-                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.HalfAtATime",
-                        "arn:aws:codedeploy:us-east-1:377915458523:deploymentconfig:CodeDeployDefault.AllAtOnce"
-                    ]
-                }, 
-                {
-                    "Effect": "Allow",
-                    "Action": "ec2:*",
-                    "Resource": [
-                       "*"
+                        "*"
                     ]
                 }
             ]

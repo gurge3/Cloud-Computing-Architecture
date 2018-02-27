@@ -72,6 +72,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                                 "sudo apt-get install ruby -y \n",
                                 "sudo apt-get install wget -y \n",
                                 "sudo apt-get install python -y \n",
+								"sudo apt-get install mysql-server\n",
 								"sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \n",
 								"sudo apt-get install -y nodejs \n",
 								"sudo npm install npm@latest -g \n",
@@ -84,7 +85,8 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                                 "sudo apt-get install tomcat8 -y \n",
 								"sudo export DB_USERNAME=root \n",
 								"sudo export DB_PASSWORD= \n",
-                                "sudo service tomcat8 restart \n"
+                                "sudo service tomcat8 restart \n",
+								"sudo service mysqld restart \n"
                             ]
                         ]
                     }
@@ -176,6 +178,11 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  		"IpProtocol": "tcp",
    	  		"FromPort": "3306",
    	  		"ToPort": "3306",
+   	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "4200",
+   	  		"ToPort": "4200",
    	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
