@@ -58,11 +58,11 @@ deploy:
       branch: master
   - provider: codedeploy
     assess_key_id: $AWS_ACCESS_KEY_ID
-    bucket: code-deploy.csye6225-spring2018-wux.tld
+    bucket: $BUCKET_NAME
     bundle_type: zip
     key: csye6225-web-app-$TRAVIS_JOB_NUMBER.zip
     application: CodeDeployApplicationAssignment6CICD
-    deployment_group: deploymentGroup
+    deployment_group: $DEPLOYMENT_GROUP_NAME
     region: us-east-1
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     wait-until-deployed: true

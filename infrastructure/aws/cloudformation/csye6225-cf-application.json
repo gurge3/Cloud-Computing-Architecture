@@ -3,7 +3,7 @@
    "IAMProfileAssignment6Application": {
 		"Type": "AWS::IAM::InstanceProfile",
 		"Properties": {
-			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1GB9ZSLFCMXJ3"]
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AO7ZPI7GA6NB"]
 		}
    },
    "InstanceAssignment6Application": {
@@ -75,7 +75,22 @@
    	  	"VpcId": "vpc-1cf32167",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
-   }, "SubnetWebServerAssignment6Application": {
+   }, "deploymentGroup": {
+		"Type": "AWS::CodeDeploy::DeploymentGroup",
+		"Properties": {
+			"ApplicationName": "CodeDeployApplicationAssignment6CICD",
+			"Ec2TagFilters": [
+				{
+					"Key": "Name",
+					"Value": "Assignment6Application-csye6225-Instance",
+					"Type": "KEY_AND_VALUE"
+				}
+			],
+			"DeploymentGroupName": "deploymentGroup",
+			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AO7ZPI7GA6NB"
+   	    }
+	  }, "SubnetWebServerAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
    	  	"VpcId": "vpc-1cf32167",

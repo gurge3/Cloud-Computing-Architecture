@@ -1,66 +1,66 @@
 {
     "StackResources": [
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::CodeDeploy::Application", 
-            "Timestamp": "2018-02-28T00:16:43.104Z", 
+            "Timestamp": "2018-02-28T22:37:55.646Z", 
             "StackName": "Assignment6CICD", 
             "PhysicalResourceId": "CodeDeployApplicationAssignment6CICD", 
             "LogicalResourceId": "CodeDeployApplicationAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::IAM::Role", 
-            "Timestamp": "2018-02-28T00:16:52.606Z", 
+            "Timestamp": "2018-02-28T22:38:05.337Z", 
             "StackName": "Assignment6CICD", 
             "PhysicalResourceId": "CodeDeployEC2ServiceRoleAssignment6CICD", 
             "LogicalResourceId": "CodeDeployEC2ServiceRoleAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::IAM::Policy", 
-            "Timestamp": "2018-02-28T00:16:59.957Z", 
+            "Timestamp": "2018-02-28T22:38:12.448Z", 
             "StackName": "Assignment6CICD", 
-            "PhysicalResourceId": "Assig-IAMP-1US3HYBSEPZZT", 
+            "PhysicalResourceId": "Assig-IAMP-TFMGXT8WVA9B", 
             "LogicalResourceId": "IAMPolicyForEC2CodeDeployAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::IAM::Policy", 
-            "Timestamp": "2018-02-28T00:17:07.697Z", 
+            "Timestamp": "2018-02-28T22:38:11.947Z", 
             "StackName": "Assignment6CICD", 
-            "PhysicalResourceId": "Assig-IAMP-1V338ITBJZSA", 
+            "PhysicalResourceId": "Assig-IAMP-1VXQKC182HFOB", 
             "LogicalResourceId": "IAMPolicyForS3TravisAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::S3::Bucket", 
-            "Timestamp": "2018-02-28T00:17:03.869Z", 
+            "Timestamp": "2018-02-28T22:38:17.412Z", 
             "StackName": "Assignment6CICD", 
             "PhysicalResourceId": "code-deploy.csye6225-spring2018-wux.tld", 
             "LogicalResourceId": "S3BuildArtifactBucketAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::IAM::Policy", 
-            "Timestamp": "2018-02-28T00:17:07.199Z", 
+            "Timestamp": "2018-02-28T22:38:12.847Z", 
             "StackName": "Assignment6CICD", 
-            "PhysicalResourceId": "Assig-Trav-CA6BN0RAL7QG", 
+            "PhysicalResourceId": "Assig-Trav-1Q9DN6Z2JT556", 
             "LogicalResourceId": "TravisCodeDeployPolicyAssignment6CICD"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/a5567990-1c1c-11e8-9fde-500c219a1afd", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6CICD/02a806c0-1cd8-11e8-8434-500c286e44d1", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::IAM::Role", 
-            "Timestamp": "2018-02-28T00:16:58.050Z", 
+            "Timestamp": "2018-02-28T22:38:05.008Z", 
             "StackName": "Assignment6CICD", 
-            "PhysicalResourceId": "Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1GB9ZSLFCMXJ3", 
+            "PhysicalResourceId": "Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AO7ZPI7GA6NB", 
             "LogicalResourceId": "TravisCodeDeployServiceRoleAssignment6CICD"
         }
     ]

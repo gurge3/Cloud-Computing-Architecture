@@ -29,13 +29,10 @@ while IFS= read -r i; do
 	j=($i)
 	if [[ ${j[0]} == *"TravisCodeDeployServiceRole"* ]]; then
 		ROLE_ID=${j[1]}
-		ROLE_STACK_ID=${j[2]}
 		export ROLE_ID
-		export ROLE_STACK_ID
 		echo "Found ROLE_ID: $ROLE_ID"
-		echo "Found ROLE_STACK_ID: $ROLE_STACK_ID"
 	fi
-done <<< "$(jq -c -r '.StackResources[] | .LogicalResourceId + " " + .PhysicalResourceId + " " + .StackId' $PWD/stack_cicd_resources.json)"
+done <<< "$(jq -c -r '.StackResources[] | .LogicalResourceId + " " + .PhysicalResourceId' $PWD/stack_cicd_resources.json)"
 
 
 ##Procedures for exporting JSON template for creating Intenet Gateway
@@ -117,7 +114,22 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  	"VpcId": "$VPC_ID",
    	  	"Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-public-route-table"}]
    	  }
-   }, "SubnetWebServer$STACK_NAME": {
+   }, "deploymentGroup": {
+		"Type": "AWS::CodeDeploy::DeploymentGroup",
+		"Properties": {
+			"ApplicationName": "CodeDeployApplication$CICD_STACK_NAME",
+			"Ec2TagFilters": [
+				{
+					"Key": "Name",
+					"Value": "$STACK_NAME-csye6225-Instance",
+					"Type": "KEY_AND_VALUE"
+				}
+			],
+			"DeploymentGroupName": "deploymentGroup",
+			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/$ROLE_ID"
+   	    }
+	  }, "SubnetWebServer$STACK_NAME": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
    	  	"VpcId": "$VPC_ID",
