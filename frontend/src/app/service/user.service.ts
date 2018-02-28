@@ -12,7 +12,7 @@ export class UserService {
   ) { }
 
   login = (username: String, password: String): Observable<any> => {
-    let url = "http://localhost:8080/authenticate/login";
+    let url = "http://ec2-52-55-57-206.compute-1.amazonaws.com:8080/authenticate/login";
     return this.http.post(url, {"email": username, "password": password})
     .map((response)=> {
       return response;
@@ -22,7 +22,7 @@ export class UserService {
   }
 
   register = (username: String, password: String): Observable<any> => {
-    let url = "http://localhost:8080/authenticate/register";
+    let url = "http://ec2-52-55-57-206.compute-1.amazonaws.com:8080/authenticate/register";
     console.log(username + "   " + password);
     return this.http.post(url, {"email": username, "password": password})
     .map((response) => {
