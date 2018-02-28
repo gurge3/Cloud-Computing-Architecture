@@ -4,8 +4,8 @@ os: linux
 files:
   - source: ./appspec.yml
     destination: /home/ubuntu
-  - source: ./frontend
-    destination: /home/ubuntu/frontend
+  - source: ./frontend/dist
+    destination: /var/lib/tomcat8/webapps/ROOT
   - source: ./webapp/build/libs/ROOT.war
     destination: /var/lib/tomcat8/webapps
   - source: ./webapp/database/travis.sql
