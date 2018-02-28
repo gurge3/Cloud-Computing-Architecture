@@ -1,6 +1,5 @@
 sudo service tomcat8 stop
 cd ~/frontend
-sudo ng build --environment=prod
 cp dist/* /var/lib/tomcat8/webapps/ROOT
 ls -al
 cd /var/lib/tomcat8/conf

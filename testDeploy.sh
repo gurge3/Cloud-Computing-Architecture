@@ -6,3 +6,4 @@ ls -al
 cd ~/frontend
 sudo npm install
 sudo npm install -g @angular/cli@latest
+sudo ng build --environment=prod
