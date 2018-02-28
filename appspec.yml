@@ -12,6 +12,10 @@ files:
     destination: /var/lib/tomcat8/webapps
 
 hooks:
+  BeforeInstall:
+   - location: ./beforeInstall.sh
+     timeout: 180
+     runas: ubuntu
   AfterInstall:
    - location: ./testDeploy.sh
      timeout: 180
