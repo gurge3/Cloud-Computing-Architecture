@@ -1,5 +1,5 @@
 ls -al
 cd /var/lib/tomcat8/webapps
 ls -al
-cd ~/webapp
+cd ~/frontend
 sudo ng serve
