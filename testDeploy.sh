@@ -5,4 +5,4 @@ sudo mysql -u root --password="rootroot" < travis.sql
 ls -al
 cd ~/webapp
 sudo npm install
-npm install -g @angular/cli@latest
+sudo npm install -g @angular/cli@latest
