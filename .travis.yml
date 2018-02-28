@@ -22,6 +22,7 @@ script:
   - rm package-lock.json
   - npm install
   - ng build --prod --aot=false
+  - ls -al
   - cd ..
   - ls -al
 after_success:
