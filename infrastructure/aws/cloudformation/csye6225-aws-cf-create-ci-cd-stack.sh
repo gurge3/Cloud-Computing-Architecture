@@ -91,7 +91,8 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                             "Principal": {
                                 "Service": [
                                     "s3.amazonaws.com",
-                                    "ec2.amazonaws.com"
+                                    "ec2.amazonaws.com",
+                                    "codedeploy.amazonaws.com"
                                 ]
                             }
                         }

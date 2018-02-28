@@ -3,11 +3,12 @@
    "IAMProfileAssignment6Application": {
 		"Type": "AWS::IAM::InstanceProfile",
 		"Properties": {
-			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AORRQZS7LNHI"]
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1GB9ZSLFCMXJ3"]
 		}
    },
    "InstanceAssignment6Application": {
-     "Type": "AWS::EC2::Instance", 
+     "Type": "AWS::EC2::Instance",
+	 "DependsOn": "RDSDBInstanceAssignment6Application",
      "Properties": {
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-Instance"}],
@@ -29,15 +30,14 @@
                             [
                                 "#!/bin/bash -xe \n",
                                 "sudo apt-get update \n",
-                                "sudo apt-get install openjdk-8-jdk -y\n",
+                                "sudo apt-get install openjdk-8-jdk -y \n",
                                 "sudo apt-get install ruby -y \n",
                                 "sudo apt-get install wget -y \n",
                                 "sudo apt-get install python -y \n",
-								"sudo apt-get install mysql-server\n",
 								"sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \n",
 								"sudo apt-get install -y nodejs \n",
 								"sudo npm install npm@latest -g \n",
-								"sudo npm install @angular/cli \n",
+								"sudo npm install @angular/cli -g \n",
                                 "sudo apt-get update \n",
                                 "sudo wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install \n",
                                 "sudo chmod +x ./install \n",
@@ -46,8 +46,7 @@
                                 "sudo apt-get install tomcat8 -y \n",
 								"sudo export DB_USERNAME=root \n",
 								"sudo export DB_PASSWORD= \n",
-                                "sudo service tomcat8 restart \n",
-								"sudo service mysqld restart \n"
+                                "sudo service tomcat8 restart \n"
                             ]
                         ]
                     }
@@ -145,6 +144,11 @@
    	  		"FromPort": "4200",
    	  		"ToPort": "4200",
    	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "8080",
+   	  		"ToPort": "8080",
+   	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
    }, "RDSDBSecurityGroupAssignment6Application": {
@@ -186,8 +190,8 @@
    	  	"DBInstanceClass": "db.t2.medium",
    	  	"Engine": "MySQL",
    	  	"EngineVersion": "5.6.37",
-   	  	"MasterUsername": "csye6225master",
-   	  	"MasterUserPassword": "csye6225password",
+   	  	"MasterUsername": "root",
+   	  	"MasterUserPassword": "rootroot",
    	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroupAssignment6Application"},
 		"DBSecurityGroups": [
 			{"Ref": "RDSDBSecurityGroupAssignment6Application"}

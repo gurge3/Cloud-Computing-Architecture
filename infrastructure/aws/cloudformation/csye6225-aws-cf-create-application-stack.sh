@@ -29,10 +29,13 @@ while IFS= read -r i; do
 	j=($i)
 	if [[ ${j[0]} == *"TravisCodeDeployServiceRole"* ]]; then
 		ROLE_ID=${j[1]}
+		ROLE_STACK_ID=${j[2]}
 		export ROLE_ID
+		export ROLE_STACK_ID
 		echo "Found ROLE_ID: $ROLE_ID"
+		echo "Found ROLE_STACK_ID: $ROLE_STACK_ID"
 	fi
-done <<< "$(jq -c -r '.StackResources[] | .LogicalResourceId + " " + .PhysicalResourceId' $PWD/stack_cicd_resources.json)"
+done <<< "$(jq -c -r '.StackResources[] | .LogicalResourceId + " " + .PhysicalResourceId + " " + .StackId' $PWD/stack_cicd_resources.json)"
 
 
 ##Procedures for exporting JSON template for creating Intenet Gateway
@@ -46,7 +49,8 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 		}
    },
    "Instance$STACK_NAME": {
-     "Type": "AWS::EC2::Instance", 
+     "Type": "AWS::EC2::Instance",
+	 "DependsOn": "RDSDBInstance$STACK_NAME",
      "Properties": {
        "ImageId" : "ami-66506c1c",
 	   "Tags": [{"Key": "Name", "Value": "$STACK_NAME-csye6225-Instance"}],
@@ -68,15 +72,14 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                             [
                                 "#!/bin/bash -xe \n",
                                 "sudo apt-get update \n",
-                                "sudo apt-get install openjdk-8-jdk -y\n",
+                                "sudo apt-get install openjdk-8-jdk -y \n",
                                 "sudo apt-get install ruby -y \n",
                                 "sudo apt-get install wget -y \n",
                                 "sudo apt-get install python -y \n",
-								"sudo apt-get install mysql-server\n",
 								"sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \n",
 								"sudo apt-get install -y nodejs \n",
 								"sudo npm install npm@latest -g \n",
-								"sudo npm install @angular/cli \n",
+								"sudo npm install @angular/cli -g \n",
                                 "sudo apt-get update \n",
                                 "sudo wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install \n",
                                 "sudo chmod +x ./install \n",
@@ -85,8 +88,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                                 "sudo apt-get install tomcat8 -y \n",
 								"sudo export DB_USERNAME=root \n",
 								"sudo export DB_PASSWORD= \n",
-                                "sudo service tomcat8 restart \n",
-								"sudo service mysqld restart \n"
+                                "sudo service tomcat8 restart \n"
                             ]
                         ]
                     }
@@ -184,6 +186,11 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  		"FromPort": "4200",
    	  		"ToPort": "4200",
    	  		"CidrIp": "0.0.0.0/0"
+   	  	}, {
+   	  		"IpProtocol": "tcp",
+   	  		"FromPort": "8080",
+   	  		"ToPort": "8080",
+   	  		"CidrIp": "0.0.0.0/0"
    	  	}]
    	  }
    }, "RDSDBSecurityGroup$STACK_NAME": {
@@ -225,8 +232,8 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
    	  	"DBInstanceClass": "db.t2.medium",
    	  	"Engine": "MySQL",
    	  	"EngineVersion": "5.6.37",
-   	  	"MasterUsername": "csye6225master",
-   	  	"MasterUserPassword": "csye6225password",
+   	  	"MasterUsername": "root",
+   	  	"MasterUserPassword": "rootroot",
    	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroup$STACK_NAME"},
 		"DBSecurityGroups": [
 			{"Ref": "RDSDBSecurityGroup$STACK_NAME"}
