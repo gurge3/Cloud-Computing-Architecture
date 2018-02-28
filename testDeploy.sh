@@ -1,8 +1,8 @@
 ls -al
 cd /var/lib/tomcat8/webapps
-sudo echo "USE mysql;\nUPDATE user SET password=PASSWORD('rootroot') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+sudo echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'rootroot';" | mysql -u root
 sudo mysql -u root --password="rootroot" < travis.sql
 ls -al
-cd ~/webapp
+cd ~/frontend
 sudo npm install
 sudo npm install -g @angular/cli@latest

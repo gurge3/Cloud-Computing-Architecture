@@ -1,5 +1,5 @@
 ls -al
 cd /var/lib/tomcat8/webapps
-sudo java -jar ROOT.war
+ls -al
 cd ~/webapp
 sudo ng serve
