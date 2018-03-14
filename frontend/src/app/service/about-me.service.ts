@@ -9,7 +9,7 @@ export class AboutMeService {
   constructor(private http:Http) { }
 
   getAboutMeByUsername = (username: String): Observable<any> => {
-    let url = "http://ec2-54-209-108-74.compute-1.amazonaws.com:8080/aboutMe/get/" + username + "/";
+    let url = "http://ec2-34-229-214-6.compute-1.amazonaws.com:8080/aboutMe/get/" + username + "/";
     return this.http.get(url)
       .map((response) => {
         return response;
@@ -19,7 +19,7 @@ export class AboutMeService {
   }
 
   setAboutMeByUsername = (username: String, aboutMe: String): Observable<any> => {
-    let url = "http://ec2-54-209-108-74.compute-1.amazonaws.com:8080/aboutMe/set";
+    let url = "http://ec2-34-229-214-6.compute-1.amazonaws.com:8080/aboutMe/set";
     return this.http.post(url, {"username": username, "aboutMe": aboutMe})
       .map((response) => {
         return response;
