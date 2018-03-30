@@ -78,6 +78,43 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 								"sudo npm install npm@latest -g \n",
 								"sudo npm install @angular/cli -g \n",
                                 "sudo apt-get update \n",
+								"sudo touch /tmp/awslogs.conf",
+                                "sudo echo '[general]' > /tmp/awslogs.conf",
+                                "sudo echo 'state_file= /var/awslogs/agent-state' >> /tmp/awslogs.conf",
+                                "sudo echo '[logstream1]' >> /tmp/awslogs.conf",
+                                "sudo echo 'file = /var/log/tomcat8/csye6225-aws.log' >> /tmp/awslogs.conf",
+                                "sudo echo 'log_group_name = csye6225-webapp' >> /tmp/awslogs.conf",
+                                "sudo echo 'log_stream_name = csye6225-webapp' >> /tmp/awslogs.conf",
+                                "sudo echo 'datetime_format = %d/%b/%Y:%H:%M:%S' >> /tmp/awslogs.conf",
+                                "curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O",
+                                {
+                                    "Fn::Join": [
+                                        " ",
+                                        [
+                                            "sudo python ./awslogs-agent-setup.py -n -r",
+                                            {
+                                                "Ref": "AWS::Region"
+                                            },
+                                            "-c /tmp/awslogs.conf || error_exit 'Failed to run CloudWatch Logs agent setup'"
+                                        ]
+                                    ]
+								},
+								"cd /etc/systemd/system",
+                                "sudo touch awslogs.service",
+                                "sudo echo '[Unit]' >> awslogs.service",
+                                "sudo echo 'Description=Service for CloudWatch Logs agent' >> awslogs.service",
+                                "sudo echo 'After=rc-local.service' >> awslogs.service",
+                                "sudo echo '[Service]' >> awslogs.service",
+                                "sudo echo 'Type=simple' >> awslogs.service",
+                                "sudo echo 'Restart=always' >> awslogs.service",
+                                "sudo echo 'KillMode=process' >> awslogs.service",
+                                "sudo echo 'TimeoutSec=infinity' >> awslogs.service",
+                                "sudo echo 'PIDFile=/var/awslogs/state/awslogs.pid' >> awslogs.service",
+                                "sudo echo 'ExecStart=/var/awslogs/bin/awslogs-agent-launcher.sh --start --background --pidfile $PIDFILE --user awslogs --chuid awslogs &amp;' >> awslogs.service",
+                                "sudo echo '[Install]' >> awslogs.service",
+                                "sudo echo 'WantedBy=multi-user.target' >> awslogs.service",
+                                "sudo systemctl start awslogs.service",
+								"sudo systemctl enable awslogs.service",
                                 "sudo wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install \n",
                                 "sudo chmod +x ./install \n",
                                 "sudo ./install auto \n",

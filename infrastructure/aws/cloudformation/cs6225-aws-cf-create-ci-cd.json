@@ -22,7 +22,7 @@
            ]
        }
      }
-   } ,"IAMPolicyForS3TravisAssignment6CICD": {
+   }, "IAMPolicyForS3TravisAssignment6CICD": {
      "Type": "AWS::IAM::Policy", 
      "Properties": {
        "PolicyName": "IAMPolicyForS3TravisAssignment6CICD",
@@ -46,7 +46,32 @@
            ]
        }
      }
-   },"TravisCodeDeployPolicyAssignment6CICD": {
+   },"IAMPolicyForCloudWatchAssignment6CICD": {
+     "Type": "AWS::IAM::Policy", 
+     "Properties": {
+       "PolicyName": "IAMPolicyForCloudWatchAssignment6CICD",
+       "Roles": [{
+           "Ref": "CloudWatchServiceRoleAssignment6CICD"
+       }],
+       "PolicyDocument": {
+           "Version": "2012-10-17",
+           "Statement": [
+               {
+                   "Effect": "Allow",
+                   "Action": [
+                        "logs:CreateLogGroup",
+                        "logs:CreateLogStream",
+                        "logs:PutLogEvents",
+                        "logs:DescribeLogStreams"
+                    ],
+                   "Resource": [
+                       "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6CICD"
+                   ]
+               }
+           ]
+       }
+     }
+   }, "TravisCodeDeployPolicyAssignment6CICD": {
    	  "Type": "AWS::IAM::Policy",
    	  "Properties": {
    	  	"PolicyName": "TravisCodeDeployPolicyAssignment6CICD",
@@ -106,6 +131,26 @@
                                 "codedeploy.amazonaws.com",
                                 "ec2.amazonaws.com"
                             ]
+                        },
+                        "Action": [
+                            "sts:AssumeRole"
+                        ]
+                    }
+                ] 
+            }
+        }
+    },"CloudWatchServiceRoleAssignment6CICD": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+            "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": [
+                                "codedeploy.amazonaws.com",
+                                "ec2.amazonaws.com"                            ]
                         },
                         "Action": [
                             "sts:AssumeRole"

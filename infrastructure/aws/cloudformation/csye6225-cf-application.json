@@ -3,7 +3,7 @@
    "IAMProfileAssignment6Application": {
 		"Type": "AWS::IAM::InstanceProfile",
 		"Properties": {
-			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AO7ZPI7GA6NB"]
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1KE9A40TPEPV"]
 		}
    },
    "InstanceAssignment6Application": {
@@ -39,6 +39,43 @@
 								"sudo npm install npm@latest -g \n",
 								"sudo npm install @angular/cli -g \n",
                                 "sudo apt-get update \n",
+								"sudo touch /tmp/awslogs.conf",
+                                "sudo echo '[general]' > /tmp/awslogs.conf",
+                                "sudo echo 'state_file= /var/awslogs/agent-state' >> /tmp/awslogs.conf",
+                                "sudo echo '[logstream1]' >> /tmp/awslogs.conf",
+                                "sudo echo 'file = /var/log/tomcat8/csye6225-aws.log' >> /tmp/awslogs.conf",
+                                "sudo echo 'log_group_name = csye6225-webapp' >> /tmp/awslogs.conf",
+                                "sudo echo 'log_stream_name = csye6225-webapp' >> /tmp/awslogs.conf",
+                                "sudo echo 'datetime_format = %d/%b/%Y:%H:%M:%S' >> /tmp/awslogs.conf",
+                                "curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O",
+                                {
+                                    "Fn::Join": [
+                                        " ",
+                                        [
+                                            "sudo python ./awslogs-agent-setup.py -n -r",
+                                            {
+                                                "Ref": "AWS::Region"
+                                            },
+                                            "-c /tmp/awslogs.conf || error_exit 'Failed to run CloudWatch Logs agent setup'"
+                                        ]
+                                    ]
+								},
+								"cd /etc/systemd/system",
+                                "sudo touch awslogs.service",
+                                "sudo echo '[Unit]' >> awslogs.service",
+                                "sudo echo 'Description=Service for CloudWatch Logs agent' >> awslogs.service",
+                                "sudo echo 'After=rc-local.service' >> awslogs.service",
+                                "sudo echo '[Service]' >> awslogs.service",
+                                "sudo echo 'Type=simple' >> awslogs.service",
+                                "sudo echo 'Restart=always' >> awslogs.service",
+                                "sudo echo 'KillMode=process' >> awslogs.service",
+                                "sudo echo 'TimeoutSec=infinity' >> awslogs.service",
+                                "sudo echo 'PIDFile=/var/awslogs/state/awslogs.pid' >> awslogs.service",
+                                "sudo echo 'ExecStart=/var/awslogs/bin/awslogs-agent-launcher.sh --start --background --pidfile  --user awslogs --chuid awslogs &amp;' >> awslogs.service",
+                                "sudo echo '[Install]' >> awslogs.service",
+                                "sudo echo 'WantedBy=multi-user.target' >> awslogs.service",
+                                "sudo systemctl start awslogs.service",
+								"sudo systemctl enable awslogs.service",
                                 "sudo wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install \n",
                                 "sudo chmod +x ./install \n",
                                 "sudo ./install auto \n",
@@ -66,13 +103,13 @@
     },"PrivateRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-1cf32167",
+   	  	"VpcId": "vpc-f721988c",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-private-route-table"}]
    	  }
    }, "PublicRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-1cf32167",
+   	  	"VpcId": "vpc-f721988c",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
    }, "deploymentGroup": {
@@ -88,12 +125,12 @@
 			],
 			"DeploymentGroupName": "deploymentGroup",
 			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1AO7ZPI7GA6NB"
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1KE9A40TPEPV"
    	    }
 	  }, "SubnetWebServerAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-1cf32167",
+   	  	"VpcId": "vpc-f721988c",
 		"CidrBlock": "10.0.0.0/24",
 		"AvailabilityZone": "us-east-1a",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-web-server-subnet-table"}]
@@ -101,7 +138,7 @@
    }, "SubnetDatabaseAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-1cf32167",
+   	  	"VpcId": "vpc-f721988c",
 		"CidrBlock": "10.0.1.0/24",
 		"AvailabilityZone": "us-east-1b",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-database-subnet-table"}]
@@ -133,7 +170,7 @@
    	  "Properties": {
    	  	"GroupDescription": "Allow http to client host",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-EC2SecurityGroup"}],
-   	  	"VpcId": "vpc-1cf32167",
+   	  	"VpcId": "vpc-f721988c",
    	  	"SecurityGroupIngress": [{
    	  		"IpProtocol": "tcp",
    	  		"FromPort": "22",
@@ -169,7 +206,7 @@
    }, "RDSDBSecurityGroupAssignment6Application": {
    	  "Type": "AWS::RDS::DBSecurityGroup",
    	  "Properties": {
-   	  	"EC2VpcId": "vpc-1cf32167",
+   	  	"EC2VpcId": "vpc-f721988c",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-RDSDBSecurityGroup"}],
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroupAssignment6Application"}
@@ -218,7 +255,7 @@
    	  "Properties": {
    	  	 "RouteTableId": {"Ref": "PublicRouteTableAssignment6Application"},
    	  	 "DestinationCidrBlock": "0.0.0.0/0",
-   	  	 "GatewayId": "igw-30a95748"
+   	  	 "GatewayId": "igw-4c14c834"
    	  }
    }
   }  
