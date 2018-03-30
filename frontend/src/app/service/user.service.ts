@@ -21,6 +21,17 @@ export class UserService {
     });
   }
 
+  resetPassword = (username: String): Observable<any> => {
+    let url = "https://8epi4sjjf0.execute-api.us-east-1.amazonaws.com/prod";
+    return this.http.post(url, {"email": username})
+    .map((response) => {
+      console.log(response);
+      return response;
+    }).catch((err: Response) => {
+      return Observable.throw("Requesting failed!");
+    })
+  }
+
   register = (username: String, password: String): Observable<any> => {
     let url = "http://ec2-54-145-197-128.compute-1.amazonaws.com:8080/authenticate/register";
     console.log(username + "   " + password);

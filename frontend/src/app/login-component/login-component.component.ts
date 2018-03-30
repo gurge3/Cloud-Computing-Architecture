@@ -18,6 +18,25 @@ export class LoginComponentComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetPassword = () => {
+    if (this.model.password == "") {
+      this.isError = true;
+      this.errorMessage = "Please enter your email address!";
+      return;
+    } else {
+      this.userService.resetPassword(this.model.username)
+      .subscribe(
+        (response) => {
+          alert(response);
+        },
+        (error) => {
+          this.isError = true;
+          this.errorMessage = error;
+        }
+      )
+    }
+  }
+
   login = () => {
     this.userService.login(this.model.username, this.model.password)
     .subscribe(
