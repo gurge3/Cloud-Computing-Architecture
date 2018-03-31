@@ -10,7 +10,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/authenticate")
-@CrossOrigin(origins="http://ec2-35-172-139-134.compute-1.amazonaws.com:4200", maxAge = 3600)
+@CrossOrigin(origins="http://ec2-54-91-14-3.compute-1.amazonaws.com:4200", maxAge = 3600)
 public class AuthenticationController {
 
     @Autowired
