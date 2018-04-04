@@ -77,7 +77,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
                                 "sudo echo '[general]' > /tmp/awslogs.conf \n",
                                 "sudo echo 'state_file = /var/awslogs/agent-state' >> /tmp/awslogs.conf \n",
                                 "sudo echo '[logstream1]' >> /tmp/awslogs.conf \n",
-                                "sudo echo 'file = /var/lib/tomcat8/webapps/nohup.out' >> /tmp/awslogs.conf \n",
+                                "sudo echo 'file = /var/lib/tomcat8/logs/catalina.out' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'log_group_name = csye6225-webapp' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'log_stream_name = csye6225-webapp' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'datetime_format = %d/%b/%Y:%H:%M:%S' >> /tmp/awslogs.conf \n",

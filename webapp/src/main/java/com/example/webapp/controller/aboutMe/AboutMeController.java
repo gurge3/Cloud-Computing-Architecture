@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/aboutMe")
-@CrossOrigin(origins="http://ec2-54-91-14-3.compute-1.amazonaws.com:4200", maxAge = 3600)
+@CrossOrigin(origins="http://ec2-54-242-60-208.compute-1.amazonaws.com:4200", maxAge = 3600)
 public class AboutMeController {
     @Autowired
     private AboutMeService aboutMeService;

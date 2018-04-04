@@ -3,7 +3,7 @@
    "IAMProfileAssignment6Application": {
 		"Type": "AWS::IAM::InstanceProfile",
 		"Properties": {
-			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1KE9A40TPEPV"]
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"]
 		}
    },
    "InstanceAssignment6Application": {
@@ -38,7 +38,7 @@
                                 "sudo echo '[general]' > /tmp/awslogs.conf \n",
                                 "sudo echo 'state_file = /var/awslogs/agent-state' >> /tmp/awslogs.conf \n",
                                 "sudo echo '[logstream1]' >> /tmp/awslogs.conf \n",
-                                "sudo echo 'file = /var/lib/tomcat8/webapps/nohup.out' >> /tmp/awslogs.conf \n",
+                                "sudo echo 'file = /var/lib/tomcat8/logs/catalina.out' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'log_group_name = csye6225-webapp' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'log_stream_name = csye6225-webapp' >> /tmp/awslogs.conf \n",
                                 "sudo echo 'datetime_format = %d/%b/%Y:%H:%M:%S' >> /tmp/awslogs.conf \n",
@@ -87,13 +87,13 @@
     },"PrivateRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-f721988c",
+   	  	"VpcId": "vpc-52f49729",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-private-route-table"}]
    	  }
    }, "PublicRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-f721988c",
+   	  	"VpcId": "vpc-52f49729",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
    }, "deploymentGroup": {
@@ -109,12 +109,12 @@
 			],
 			"DeploymentGroupName": "deploymentGroup",
 			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-1KE9A40TPEPV"
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"
    	    }
 	  }, "SubnetWebServerAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-f721988c",
+   	  	"VpcId": "vpc-52f49729",
 		"CidrBlock": "10.0.0.0/24",
 		"AvailabilityZone": "us-east-1a",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-web-server-subnet-table"}]
@@ -122,7 +122,7 @@
    }, "SubnetDatabaseAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-f721988c",
+   	  	"VpcId": "vpc-52f49729",
 		"CidrBlock": "10.0.1.0/24",
 		"AvailabilityZone": "us-east-1b",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-database-subnet-table"}]
@@ -154,7 +154,7 @@
    	  "Properties": {
    	  	"GroupDescription": "Allow http to client host",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-EC2SecurityGroup"}],
-   	  	"VpcId": "vpc-f721988c",
+   	  	"VpcId": "vpc-52f49729",
    	  	"SecurityGroupIngress": [{
    	  		"IpProtocol": "tcp",
    	  		"FromPort": "22",
@@ -190,7 +190,7 @@
    }, "RDSDBSecurityGroupAssignment6Application": {
    	  "Type": "AWS::RDS::DBSecurityGroup",
    	  "Properties": {
-   	  	"EC2VpcId": "vpc-f721988c",
+   	  	"EC2VpcId": "vpc-52f49729",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-RDSDBSecurityGroup"}],
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroupAssignment6Application"}
@@ -239,7 +239,7 @@
    	  "Properties": {
    	  	 "RouteTableId": {"Ref": "PublicRouteTableAssignment6Application"},
    	  	 "DestinationCidrBlock": "0.0.0.0/0",
-   	  	 "GatewayId": "igw-4c14c834"
+   	  	 "GatewayId": "igw-ae5de4d6"
    	  }
    }
   }  

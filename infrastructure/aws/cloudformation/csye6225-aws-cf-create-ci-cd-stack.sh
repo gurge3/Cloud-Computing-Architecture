@@ -44,7 +44,8 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                    "Action": [
                        "s3:*",
                        "codedeploy:*",
-                       "ec2:*"
+                       "ec2:*",
+                       "logs:*"
                    ],
                    "Resource": [
                        "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucket$STACK_NAME"
@@ -93,7 +94,8 @@ cat <<EOF > "$PWD/cs6225-aws-cf-create-ci-cd.json"
                     "Action": [
                         "s3:*",
                         "ec2:*",
-                        "codedeploy:*"
+                        "codedeploy:*",
+                        "logs:*"
                     ],
                     "Resource": [
                         "*"

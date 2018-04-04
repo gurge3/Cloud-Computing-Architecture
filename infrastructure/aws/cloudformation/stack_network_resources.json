@@ -1,30 +1,30 @@
 {
     "StackResources": [
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/809d2820-27bf-11e8-92d5-500c286e44d1", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/22cc07e0-3861-11e8-a843-500c5240588e", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::VPCGatewayAttachment", 
-            "Timestamp": "2018-03-14T19:40:46.890Z", 
+            "Timestamp": "2018-04-04T23:38:05.601Z", 
             "StackName": "Assignment6Network", 
-            "PhysicalResourceId": "Assig-Attac-17XRI7N5KNWO8", 
+            "PhysicalResourceId": "Assig-Attac-12D5BD7H6QNQZ", 
             "LogicalResourceId": "AttachedGatewayAssignment6Network"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/809d2820-27bf-11e8-92d5-500c286e44d1", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/22cc07e0-3861-11e8-a843-500c5240588e", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::InternetGateway", 
-            "Timestamp": "2018-03-14T19:40:27.775Z", 
+            "Timestamp": "2018-04-04T23:37:47.132Z", 
             "StackName": "Assignment6Network", 
-            "PhysicalResourceId": "igw-4c14c834", 
+            "PhysicalResourceId": "igw-ae5de4d6", 
             "LogicalResourceId": "InternetGatewayAssignment6Network"
         }, 
         {
-            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/809d2820-27bf-11e8-92d5-500c286e44d1", 
+            "StackId": "arn:aws:cloudformation:us-east-1:377915458523:stack/Assignment6Network/22cc07e0-3861-11e8-a843-500c5240588e", 
             "ResourceStatus": "CREATE_COMPLETE", 
             "ResourceType": "AWS::EC2::VPC", 
-            "Timestamp": "2018-03-14T19:40:29.131Z", 
+            "Timestamp": "2018-04-04T23:37:47.742Z", 
             "StackName": "Assignment6Network", 
-            "PhysicalResourceId": "vpc-f721988c", 
+            "PhysicalResourceId": "vpc-52f49729", 
             "LogicalResourceId": "VPCAssignment6Network"
         }
     ]

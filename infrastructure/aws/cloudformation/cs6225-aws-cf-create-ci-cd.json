@@ -37,7 +37,8 @@
                    "Action": [
                        "s3:*",
                        "codedeploy:*",
-                       "ec2:*"
+                       "ec2:*",
+                       "logs:*"
                    ],
                    "Resource": [
                        "arn:aws:codedeploy:us-east-1:377915458523:application:S3BuildArtifactBucketAssignment6CICD"
@@ -86,7 +87,8 @@
                     "Action": [
                         "s3:*",
                         "ec2:*",
-                        "codedeploy:*"
+                        "codedeploy:*",
+                        "logs:*"
                     ],
                     "Resource": [
                         "*"
