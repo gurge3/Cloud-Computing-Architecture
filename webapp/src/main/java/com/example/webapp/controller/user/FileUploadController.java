@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Controller
-@CrossOrigin(origins="http://ec2-54-242-60-208.compute-1.amazonaws.com:4200", maxAge = 3600)
+@CrossOrigin(origins="http://csye6225-spring2018-wux.me:4200", maxAge = 3600)
 public class FileUploadController {
 
     private final Logger logger = LoggerFactory.getLogger(FileUploadController.class);

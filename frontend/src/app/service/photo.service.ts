@@ -9,7 +9,7 @@ export class PhotoService {
   constructor(private http:Http) { }
 
   deletePhotoByUsername(username: String): Observable<any> {
-    let url = "http://ec2-54-242-60-208.compute-1.amazonaws.com:8080/photo/delete/" + username + "/";
+    let url = "http://csye6225-spring2018-wux.me:8080/photo/delete/" + username + "/";
     return this.http.delete(url)
       .map(
         (response) => {
@@ -22,7 +22,7 @@ export class PhotoService {
   }
 
   getPhotoPathByUsername(username: String): Observable<any> {
-    let url = "http://ec2-54-242-60-208.compute-1.amazonaws.com:8080/photo/get/" + username + "/";
+    let url = "http://csye6225-spring2018-wux.me:8080/photo/get/" + username + "/";
     return this.http.get(url)
       .map(
         (response) => {
