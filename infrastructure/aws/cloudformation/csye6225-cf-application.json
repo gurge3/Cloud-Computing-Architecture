@@ -6,23 +6,19 @@
 			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"]
 		}
    },
-   "InstanceAssignment6Application": {
-     "Type": "AWS::EC2::Instance",
-	 "DependsOn": "RDSDBInstanceAssignment6Application",
+   "LaunchConfigurationAssignment6Application": {
+     "Type": "AWS::AutoScaling::LaunchConfiguration",
      "Properties": {
        "ImageId" : "ami-66506c1c",
-	   "Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-Instance"}],
+	   "AssociatePublicIpAddress": true,
 	   "InstanceType": "t2.micro",
 	   "IamInstanceProfile": {
 		  "Ref": "IAMProfileAssignment6Application" 
 	   },
-	   "KeyName": "secret",
-	   "NetworkInterfaces": [{
-			"AssociatePublicIpAddress": "true",
-		   "DeviceIndex": "0",
-		   "GroupSet": [{"Ref": "EC2SecurityGroupAssignment6Application"}],
-		   "SubnetId": {"Ref": "SubnetWebServerAssignment6Application"}
+	   "SecurityGroups": [{
+		   "Ref":"EC2SecurityGroupAssignment6Application"
 	   }],
+	   "KeyName": "secret",
 	   "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -71,30 +67,126 @@
                             ]
                         ]
                     }
-				},
-       "DisableApiTermination" : "false",
-       "BlockDeviceMappings" : [{
-       	"DeviceName": "/dev/sdm",
-       	"Ebs" : {
-           "VolumeType": "gp2",
-           "VolumeSize": "16"
-          }
-        }, {
-       	"DeviceName" : "/dev/sdk",
-       	"NoDevice" : {}
-        }]
+				}
       }
-    },"PrivateRouteTableAssignment6Application": {
-   	  "Type": "AWS::EC2::RouteTable",
+    }, "AutoScalingGroupAssignment6Application": {
+   	  "Type": "AWS::AutoScaling::AutoScalingGroup",
    	  "Properties": {
-   	  	"VpcId": "vpc-52f49729",
-   	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-private-route-table"}]
+		 "VPCZoneIdentifier": [{
+			"Ref": "SubnetWebServerAssignment6Application"
+		 }],
+   	  	 "Cooldown": "60",
+		 "LaunchConfigurationName": {
+			 "Ref": "LaunchConfigurationAssignment6Application"
+		 },
+		 "MinSize": "3",
+		 "MaxSize": "7",
+		 "DesiredCapacity": "3",
+		 "AutoScalingGroupName": "AutoScalingGroup",
+		 "Tags": [{
+			"Key" : "Name",
+			"Value" : "EC2-1",
+			"PropagateAtLaunch" : "true"
+      	  }, {
+			"Key" : "Name2",
+			"Value" : "EC2-2",
+			"PropagateAtLaunch" : "true"
+      	  },
+		  {
+			"Key" : "Name3",
+			"Value" : "EC2-3",
+			"PropagateAtLaunch" : "true"
+      	  },
+		  {
+			"Key" : "Name4",
+			"Value" : "EC2-4",
+			"PropagateAtLaunch" : "true"
+      	  },
+		  {
+			"Key" : "Name5",
+			"Value" : "EC2-5",
+			"PropagateAtLaunch" : "true"
+      	  },
+		  {
+			"Key" : "Name6",
+			"Value" : "EC2-6",
+			"PropagateAtLaunch" : "true"
+      	  },
+		  {
+			"Key" : "Name7",
+			"Value" : "EC2-7",
+			"PropagateAtLaunch" : "true"
+      	  }]
+	   }
+   }, "WebServerScaleUpPolicyAssignment6Application": {
+   	  "Type": "AWS::AutoScaling::ScalingPolicy",
+   	  "Properties": {
+   	  	"AdjustmentType": "ChangeInCapacity",
+      	"AutoScalingGroupName": {
+          "Ref": "AutoScalingGroupAssignment6Application"
+      	},
+      	"Cooldown": "60",
+      	"ScalingAdjustment": "1"
    	  }
-   }, "PublicRouteTableAssignment6Application": {
-   	  "Type": "AWS::EC2::RouteTable",
+   }, "WebServerScaleDownPolicyAssignment6Application": {
+   	  "Type": "AWS::AutoScaling::ScalingPolicy",
    	  "Properties": {
-   	  	"VpcId": "vpc-52f49729",
-   	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
+   	  	"AdjustmentType": "ChangeInCapacity",
+      	"AutoScalingGroupName": {
+          "Ref": "AutoScalingGroupAssignment6Application"
+      	},
+      	"Cooldown": "60",
+      	"ScalingAdjustment": "-1"
+   	  }
+   }, "CPUAlarmHighAssignment6Application": {
+   	  "Type": "AWS::CloudWatch::Alarm",
+   	  "Properties": {
+   	  	"AlarmDescription": "Scale-up if CPU > 90% for 10 minutes",
+      	"MetricName": "CPUUtilization",
+      	"Namespace": "AWS/EC2",
+      	"Statistic": "Average",
+      	"Period": "300",
+      	"EvaluationPeriods": "2",
+      	"Threshold": "90",
+      	"AlarmActions": [
+        	{
+          		"Ref": "WebServerScaleUpPolicyAssignment6Application"
+        	}
+      	],
+		"Dimensions": [
+		  {
+			"Name": "AutoScalingGroupName",
+			"Value": {
+				"Ref": "AutoScalingGroupAssignment6Application"
+			}
+		  }
+		],
+      	"ComparisonOperator": "GreaterThanThreshold"
+   	  }
+   }, "CPUAlarmLowAssignment6Application": {
+   	  "Type": "AWS::CloudWatch::Alarm",
+   	  "Properties": {
+   	  	"AlarmDescription": "Scale-up if CPU < 70% for 10 minutes",
+      	"MetricName": "CPUUtilization",
+      	"Namespace": "AWS/EC2",
+      	"Statistic": "Average",
+      	"Period": "300",
+      	"EvaluationPeriods": "2",
+      	"Threshold": "70",
+      	"AlarmActions": [
+        	{
+          		"Ref": "WebServerScaleDownPolicyAssignment6Application"
+        	}
+      	],
+		"Dimensions": [
+		  {
+			"Name": "AutoScalingGroupName",
+			"Value": {
+				"Ref": "AutoScalingGroupAssignment6Application"
+			}
+		  }
+		],
+      	"ComparisonOperator": "LessThanThreshold"
    	  }
    }, "deploymentGroup": {
 		"Type": "AWS::CodeDeploy::DeploymentGroup",
@@ -103,7 +195,37 @@
 			"Ec2TagFilters": [
 				{
 					"Key": "Name",
-					"Value": "Assignment6Application-csye6225-Instance",
+					"Value": "EC2-1",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name2",
+					"Value": "EC2-2",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name3",
+					"Value": "EC2-3",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name4",
+					"Value": "EC2-4",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name5",
+					"Value": "EC2-5",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name6",
+					"Value": "EC2-6",
+					"Type": "KEY_AND_VALUE"
+				},
+				{
+					"Key": "Name7",
+					"Value": "EC2-7",
 					"Type": "KEY_AND_VALUE"
 				}
 			],
@@ -111,14 +233,74 @@
 			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
 			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"
    	    }
-	  }, "SubnetWebServerAssignment6Application": {
-   	  "Type": "AWS::EC2::Subnet",
+	  }, "PrivateRouteTableAssignment6Application": {
+		"Type": "AWS::EC2::RouteTable",
+		"Properties": {
+			"VpcId": "vpc-52f49729",
+			"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-private-route-table"}]
+		}
+   }, "PublicRouteTableAssignment6Application": {
+   	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
    	  	"VpcId": "vpc-52f49729",
-		"CidrBlock": "10.0.0.0/24",
-		"AvailabilityZone": "us-east-1a",
-   	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-web-server-subnet-table"}]
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
+   }, "LoadBalancerAssignment6Application": {
+   	  "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+   	  "Properties": {
+		"Subnets": [
+				{
+					"Ref": "SubnetWebServerAssignment6Application"
+				}
+		],
+		"Listeners" : [{
+			"LoadBalancerPort" : "80",
+			"InstancePort" : "80",
+			"Protocol" : "HTTP"
+		}, {
+			"LoadBalancerPort" : "4200",
+			"InstancePort" : "4200",
+			"Protocol" : "TCP"
+		}, {
+			"LoadBalancerPort" : "8080",
+			"InstancePort" : "8080",
+			"Protocol" : "TCP"
+		}, {
+			"LoadBalancerPort" : "443",
+			"InstancePort" : "443",
+			"Protocol" : "TCP"
+		}]
+   	  }
+   }, "PublicRouteTableAssignment6Application": {
+   	  "Type": "AWS::EC2::RouteTable",
+   	  "Properties": {
+   	  	"VpcId": "vpc-52f49729",
+   	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
+   	  }
+   }, "DNSRoute53Assignment6Application": {
+		"Type": "AWS::Route53::RecordSetGroup",
+		"Properties": {
+			"HostedZoneName" : "csye6225-spring2018-wux.me.",
+          	"Comment" : "Zone apex alias targeted to myELB LoadBalancer.",
+			"RecordSets" : [
+				{
+					"Name" : "csye6225-spring2018-wux.me.",
+					"Type" : "A",
+					"AliasTarget" : {
+						"HostedZoneId" : { "Fn::GetAtt" : ["LoadBalancerAssignment6Application", "CanonicalHostedZoneNameID"] },
+						"DNSName" : { "Fn::GetAtt" : ["LoadBalancerAssignment6Application","DNSName"] }
+					}
+				}
+			]
+   	    }
+	  }, "SubnetWebServerAssignment6Application": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": "vpc-52f49729",
+				"CidrBlock": "10.0.0.0/24",
+				"AvailabilityZone": "us-east-1a",
+				"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-web-server-subnet-table"}]
+			}
    }, "SubnetDatabaseAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
@@ -217,22 +399,6 @@
 			"ReadCapacityUnits": 5,
 			"WriteCapacityUnits": 5
 		}
-   	  }
-   }, "RDSDBInstanceAssignment6Application": {
-   	  "Type": "AWS::RDS::DBInstance",
-   	  "Properties": {
-   	  	"DBName": "csye6225",
-		"AllocatedStorage": 100,
-   	  	"DBInstanceClass": "db.t2.medium",
-   	  	"Engine": "MySQL",
-   	  	"EngineVersion": "5.6.37",
-   	  	"MasterUsername": "root",
-   	  	"MasterUserPassword": "rootroot",
-   	  	"DBSubnetGroupName": {"Ref": "DBSubnetGroupAssignment6Application"},
-		"DBSecurityGroups": [
-			{"Ref": "RDSDBSecurityGroupAssignment6Application"}
-		],
-   	  	"PubliclyAccessible": "false"
    	  }
    }, "RouteAssignment6Application": {
    	  "Type": "AWS::EC2::Route",
