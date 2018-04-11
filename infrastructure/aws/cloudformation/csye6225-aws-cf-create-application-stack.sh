@@ -292,7 +292,9 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 					"Ref": "SubnetWebServer$STACK_NAME"
 				}
 		],
-		"Listeners" : [{
+		"SecurityGroups": [{
+			"Ref": "EC2SecurityGroup$STACK_NAME"
+		}], "Listeners" : [{
 			"LoadBalancerPort" : "80",
 			"InstancePort" : "80",
 			"Protocol" : "HTTP"

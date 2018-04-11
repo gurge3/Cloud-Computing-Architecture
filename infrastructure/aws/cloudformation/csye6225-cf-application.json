@@ -253,7 +253,9 @@
 					"Ref": "SubnetWebServerAssignment6Application"
 				}
 		],
-		"Listeners" : [{
+		"SecurityGroups": [{
+			"Ref": "EC2SecurityGroupAssignment6Application"
+		}], "Listeners" : [{
 			"LoadBalancerPort" : "80",
 			"InstancePort" : "80",
 			"Protocol" : "HTTP"
