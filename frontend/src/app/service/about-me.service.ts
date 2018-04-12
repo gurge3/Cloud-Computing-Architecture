@@ -9,7 +9,7 @@ export class AboutMeService {
   constructor(private http:Http) { }
 
   getAboutMeByUsername = (username: String): Observable<any> => {
-    let url = "http://csye6225-spring2018-wux.me:8080/aboutMe/get/" + username + "/";
+    let url = "https://csye6225-spring2018-wux.me:8080/aboutMe/get/" + username + "/";
     return this.http.get(url)
       .map((response) => {
         return response;
@@ -19,7 +19,7 @@ export class AboutMeService {
   }
 
   setAboutMeByUsername = (username: String, aboutMe: String): Observable<any> => {
-    let url = "http://csye6225-spring2018-wux.me:8080/aboutMe/set";
+    let url = "https://csye6225-spring2018-wux.me:8080/aboutMe/set";
     return this.http.post(url, {"username": username, "aboutMe": aboutMe})
       .map((response) => {
         return response;
