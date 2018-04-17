@@ -270,7 +270,7 @@ cat <<EOF > "$PWD/csye6225-cf-application.json"
 			],
 			"DeploymentGroupName": "deploymentGroup",
 			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-LT0UK6CG2M55"
    	    }
 	  }, "PrivateRouteTable$STACK_NAME": {
 		"Type": "AWS::EC2::RouteTable",

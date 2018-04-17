@@ -35,6 +35,7 @@ export class UserService {
   register = (username: String, password: String): Observable<any> => {
     let url = "https://csye6225-spring2018-wux.me:8080/authenticate/register";
     console.log(username + "   " + password);
+    console.log(url);
     return this.http.post(url, {"email": username, "password": password})
     .map((response) => {
       console.log(response);

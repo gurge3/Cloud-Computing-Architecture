@@ -3,7 +3,7 @@
    "IAMProfileAssignment6Application": {
 		"Type": "AWS::IAM::InstanceProfile",
 		"Properties": {
-			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"]
+			"Roles": ["Assignment6CICD-TravisCodeDeployServiceRoleAssignm-LT0UK6CG2M55"]
 		}
    },
    "LaunchConfigurationAssignment6Application": {
@@ -231,18 +231,18 @@
 			],
 			"DeploymentGroupName": "deploymentGroup",
 			"DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-AFCMY8S3TJ1M"
+			"ServiceRoleArn": "arn:aws:iam::377915458523:role/Assignment6CICD-TravisCodeDeployServiceRoleAssignm-LT0UK6CG2M55"
    	    }
 	  }, "PrivateRouteTableAssignment6Application": {
 		"Type": "AWS::EC2::RouteTable",
 		"Properties": {
-			"VpcId": "vpc-52f49729",
+			"VpcId": "vpc-2d85fc56",
 			"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-private-route-table"}]
 		}
    }, "PublicRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-52f49729",
+   	  	"VpcId": "vpc-2d85fc56",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
    }, "LoadBalancerAssignment6Application": {
@@ -276,7 +276,7 @@
    }, "PublicRouteTableAssignment6Application": {
    	  "Type": "AWS::EC2::RouteTable",
    	  "Properties": {
-   	  	"VpcId": "vpc-52f49729",
+   	  	"VpcId": "vpc-2d85fc56",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-public-route-table"}]
    	  }
    }, "DNSRoute53Assignment6Application": {
@@ -298,7 +298,7 @@
 	  }, "SubnetWebServerAssignment6Application": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
-				"VpcId": "vpc-52f49729",
+				"VpcId": "vpc-2d85fc56",
 				"CidrBlock": "10.0.0.0/24",
 				"AvailabilityZone": "us-east-1a",
 				"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-web-server-subnet-table"}]
@@ -306,7 +306,7 @@
    }, "SubnetDatabaseAssignment6Application": {
    	  "Type": "AWS::EC2::Subnet",
    	  "Properties": {
-   	  	"VpcId": "vpc-52f49729",
+   	  	"VpcId": "vpc-2d85fc56",
 		"CidrBlock": "10.0.1.0/24",
 		"AvailabilityZone": "us-east-1b",
    	  	"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-database-subnet-table"}]
@@ -338,7 +338,7 @@
    	  "Properties": {
    	  	"GroupDescription": "Allow http to client host",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-EC2SecurityGroup"}],
-   	  	"VpcId": "vpc-52f49729",
+   	  	"VpcId": "vpc-2d85fc56",
    	  	"SecurityGroupIngress": [{
    	  		"IpProtocol": "tcp",
    	  		"FromPort": "22",
@@ -374,7 +374,7 @@
    }, "RDSDBSecurityGroupAssignment6Application": {
    	  "Type": "AWS::RDS::DBSecurityGroup",
    	  "Properties": {
-   	  	"EC2VpcId": "vpc-52f49729",
+   	  	"EC2VpcId": "vpc-2d85fc56",
 		"Tags": [{"Key": "Name", "Value": "Assignment6Application-csye6225-RDSDBSecurityGroup"}],
    	  	"DBSecurityGroupIngress": [{
    	  		"EC2SecurityGroupId": { "Ref": "EC2SecurityGroupAssignment6Application"}
@@ -407,7 +407,7 @@
    	  "Properties": {
    	  	 "RouteTableId": {"Ref": "PublicRouteTableAssignment6Application"},
    	  	 "DestinationCidrBlock": "0.0.0.0/0",
-   	  	 "GatewayId": "igw-ae5de4d6"
+   	  	 "GatewayId": "igw-677df61f"
    	  }
    }
   }  
