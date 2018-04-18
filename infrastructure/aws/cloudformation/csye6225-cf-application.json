@@ -30,6 +30,8 @@
                                 "sudo apt-get install ruby -y \n",
                                 "sudo apt-get install wget -y \n",
                                 "sudo apt-get install python -y \n",
+								"sudo export DEBIAN_FRONTEND=noninteractive \n",
+								"sudo -E apt-get -q -y install mysql-server \n",
 								"sudo touch /tmp/awslogs.conf \n",
                                 "sudo echo '[general]' > /tmp/awslogs.conf \n",
                                 "sudo echo 'state_file = /var/awslogs/agent-state' >> /tmp/awslogs.conf \n",
